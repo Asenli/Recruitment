@@ -14,18 +14,22 @@ class Position(APIView):
         """
         pass
         res = []
-        all = models.Position.objects.all()
-        for postion in all:
-            res.append({
-                "name": postion.name,
-                "salary": postion.salary,
-                "experience": postion.experience,
-                "education": postion.education,
-                "keyword": postion.keyword,
-                "company": postion.company,
-                "add_time": postion.add_time.strftime('%Y-%m-%d')
-            })
-        return JsonResponse({'status': True, 'msg': '查询成功', 'data': res})
+        try:
+            all = models.Position.objects.all()
+            for postion in all:
+                res.append({
+                    "name": postion.name,
+                    "salary": postion.salary,
+                    "experience": postion.experience,
+                    "education": postion.education,
+                    "keyword": postion.keyword,
+                    "company": postion.company,
+                    "add_time": postion.add_time.strftime('%Y-%m-%d')
+                })
+            return JsonResponse({"code": 200, 'status': True, 'msg': '查询成功', 'data': res})
+        except Exception as e:
+            return JsonResponse({"code": 500, 'status': False, 'msg': '查询失败', 'data': []})
+
 
     def post(self, request):
         """

@@ -223,3 +223,6 @@ SESSION_COOKIE_HTTPONLY = True  # 是否Session的cookie只支持http传输（�
 SESSION_COOKIE_AGE = 18000  # Session的cookie失效日期（2周）（默认）
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # 是否关闭浏览器使得Session过期（默认）
 SESSION_SAVE_EVERY_REQUEST = False
+import os
+
+PROJECT_ROOT = os.path.dirname(__file__)

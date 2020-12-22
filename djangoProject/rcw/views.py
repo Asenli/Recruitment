@@ -6,6 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 from django.contrib import auth
+from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password, check_password
 from django.db.models import Q
 from django.http import JsonResponse
@@ -15,7 +16,7 @@ from rest_framework.views import APIView
 from common.utils import random_str
 from djangoProject.settings import EMAIL_HOST_USER
 from rcw import models
-from rcw.models import User
+from rcw.models import User, Roles
 import jwt
 import datetime
 
@@ -36,7 +37,7 @@ class Register(APIView):
             password2 = request.data.get('password2')
             phone = request.data.get('phone')
             email = request.data.get('email')
-            obj = models.User.objects.filter(username=username).first()
+            obj = User.objects.filter(username=username).first()
             if obj:
                 return JsonResponse({'status': False, 'msg': '用户名已存在'})
             if email == "":
@@ -49,8 +50,11 @@ class Register(APIView):
                 return JsonResponse({'msg': '请填写密码', 'status': False})
             if password != password2:
                 return JsonResponse({'msg': '两次密码不一致', 'status': False})
-            #
-            user = User.objects.create(email=email, username=username, password=make_password(password), phone=phone)
+            # auth
+            # user = User.objects.create_user(email=email, username=username, password=password, phone=phone)
+            user = User.objects.create(email=email, username=username, password=make_password(password),
+                                            phone=phone)
+            Roles.objects.create(user_id=user.id, name='sysadmin')
             user.save()
             return JsonResponse({'msg': '注册成功', 'status': True})
         except Exception as e:
@@ -72,8 +76,10 @@ class AuthView(APIView):
             usr = request.data.get('username')
             pas = request.data.get('password')
             # 检查账户是否存在
-            user = auth.authenticate(request, username=usr, password=pas)
-            if not user:
+            # user = auth.authenticate(request, username=usr, password=pas)
+            user = User.objects.get(username=usr)
+            # 检查密码
+            if not check_password(pas, user.password):
                 return JsonResponse({'code': 400, 'mes': '账户或密码错误'})
             salt = 'ssasdgf14sd4s5gf4s5s4fs'
 
@@ -89,9 +95,9 @@ class AuthView(APIView):
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=20)  # 超时时间30分钟
             }
             token = jwt.encode(payload=payload, key=salt, algorithm="HS256", headers=headers).decode('utf-8')
-            print({'code': 200, 'msg': "成功",
-                                 'data': {"token": token, "id": user.id, "username": user.username}
-                                 })
+            # print({'code': 200, 'msg': "成功",
+            #                      'data': {"token": token, "id": user.id, "username": user.username}
+            #                      })
             return JsonResponse({'code': 200, 'msg': "成功",
                                  'data': {"token": token, "id": user.id, "username": user.username}
                                  })
@@ -101,11 +107,14 @@ class AuthView(APIView):
                    }
             return JsonResponse(ret)
 
+
 class AuthViewLoginOut(APIView):
     "退出"
-    def post(self,request, *args, **kwargs):
+
+    def post(self, request, *args, **kwargs):
         auth.logout(request)
-        return JsonResponse({'code': 200, 'msg': "成功",'data': {}})
+        return JsonResponse({'code': 200, 'msg': "成功", 'data': {}})
+
 
 class FindpwdView(APIView):
     # 找回密码

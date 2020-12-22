@@ -8,7 +8,8 @@ import jwt
 def auth_middleware(get_response):
     def middleware(request):
         token = request.META.get('HTTP_X_TOKEN', None)
-        if request.path != '/login' and request.path != '/register/' and request.path != '/repeat_pwd/':
+        # 中间件过滤路由
+        if request.path not in ['/login/', '/login', '/register', '/repeat_pwd/']:
             if not token:
                 return JsonResponse({'code': 1003, 'msg': 'need token'})
             # 检查

@@ -32,11 +32,11 @@ urlpatterns = [
     # path('login/', AuthView.as_view()), # jwt 登录接口
     path('api/token/refresh', refresh_jwt_token, name='token_refresh'),  # jwt 刷新token接口
 
-    path('api/register', Register.as_view()),
+    path('register', Register.as_view()),
     path('api/repeat_pwd', FindpwdView.as_view()),
     path('userinfo', UserInfo.as_view()),
 
-    path('api/position', Position.as_view()),
+    path('position', Position.as_view()),
     # re_path(r'^all_user/$', AllInfo.as_view()),
     path('all_user', AllInfo.as_view())
 

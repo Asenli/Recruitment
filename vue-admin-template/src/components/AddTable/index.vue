@@ -135,9 +135,8 @@ export default {
   },
   mounted() {
     // debugger
-    this.$axios.get('http://49.232.202.208:8000/userinfo/', { params: { id: localStorage.getItem('userId') }}).then(res => {
+    this.$axios.get('http://127.0.0.1:8000/userinfo/', { params: { id: localStorage.getItem('userId') }}).then(res => {
       if (res.data.code === 200 && res.data.data.config) {
-        debugger
         this.sureWorks = res.data.data.config.surework
       }
     })
@@ -216,7 +215,7 @@ export default {
         // 保存
         this.sureWorks.push(sureWorkData)
         console.log({ config: this.sureWorks })
-        this.$axios.post('http://49.232.202.208:8000/userinfo/', { config: this.sureWorks }).then(res => {
+        this.$axios.post('http://127.0.0.1:8000/userinfo/', { config: this.sureWorks }).then(res => {
           // 要发送多次请求  把列表 变成了字段传到后台？？？？？？？？？？？？？？
           console.log(res)
         })

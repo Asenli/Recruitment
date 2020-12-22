@@ -58,48 +58,11 @@ const actions = {
         if (!data) {
           return reject('Verification failed, please Login again.')
         }
-        const { username, avatar } = data
-        // 模拟请求数据
-        const menus = [
-          {
-            'path': '/system',
-            'redirect': '/menu',
-            'component': 'Layout',
-            'meta': {
-              'title': '系统管理',
-              'icon': 'form'
-            },
-            'children': [{
-              'path': '/menu',
-              'name': 'menu',
-              'component': 'menu/index',
-              'meta': {
-                'title': '简历筛选',
-                'icon': 'table'
-              }
-            },
-            {
-              'path': '/roles',
-              'name': 'roles',
-              'component': 'roles/index',
-              'meta': {
-                'title': '简历管理',
-                'icon': 'table'
-              }
-            },
-            {
-              'path': '/administrator',
-              'name': 'administrator',
-              'component': 'dashboard/index',
-              'meta': {
-                'title': '用户管理',
-                'icon': 'table'
-              }
-            }
-            ]
-          }
-
-        ]
+        const { menus, roles, username, avatar } = data
+        debugger
+        if (!roles || roles.length <= 0) {
+          reject('getInfo: roles must be a non-null array!')
+        }
         // 如果需要404 页面，请在此处添加
         menus.push({
           path: '/404',
@@ -110,8 +73,10 @@ const actions = {
           redirect: '/404',
           hidden: true
         })
+        commit('SET_ROLES', roles)
         commit('SET_NAME', username)
         commit('SET_AVATAR', avatar) // 角色
+        // debugger  获取菜单列表
         commit('SET_MENUS', menus) // 触发vuex SET_MENUS 保存路由表到vuex
         resolve(data)
       }).catch(error => {

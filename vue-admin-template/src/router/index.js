@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 /* Layout */
-import Layout from '@/layout'
+// import Layout from '@/layout'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -36,7 +36,7 @@ export const constantRoutes = [
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
-  },
+  }
   // {
   //   path: '/',
   //   component: Layout,
@@ -55,17 +55,17 @@ export const constantRoutes = [
   //     }]
   //   }]
   // }
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
-    }]
-  },
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   children: [{
+  //     path: 'dashboard',
+  //     name: 'dashboard',
+  //     component: () => import('@/views/dashboard/index'),
+  //     meta: { title: '岗位信息', icon: 'dashboard' }
+  //   }]
+  // }
   // {
   //   path: '/example',
   //   component: Layout,

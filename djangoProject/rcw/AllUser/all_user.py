@@ -46,7 +46,7 @@ class AllInfo(APIView):
 
             }
             for i in datas:
-                if eval(i.config):
+                if i.config and eval(i.config):
                     config = eval(i.config)
                 data.append({"name": i.username, "email": i.email, "config": config,
                              "education": config['form']['education'],

@@ -3,12 +3,14 @@
 # @Author: AsenLi
 # 简历相关
 import json
+import os
 
 import demjson
 from django.http import JsonResponse
 from rest_framework.views import APIView
 
-from rcw.models import User
+from djangoProject.settings import PROJECT_ROOT
+from rcw.models import User, Roles
 import jwt
 
 
@@ -39,6 +41,26 @@ class UserInfo(APIView):
                     'id': obj.id,
                     'config': demjson.decode(obj.config) if obj.config else []
                 }
+                role_name = Roles.objects.filter(user_id=obj.id).first()
+                if not role_name:
+                    return JsonResponse({'code': 500, 'msg': "用户未绑定角，请联系管理员", 'data': ''})
+                role_name = role_name.name
+                res['roles'] = role_name
+                # 获取菜单权限
+                # os.path.join(dir, 'admin.json')
+
+                path = os.path.abspath('utils') + '\\menu\\' + '{}.json'.format(role_name)
+                menus = []
+                if not os.path.exists(path):
+                    menus = []
+                else:
+                    try:
+                        # 获取菜单列表json
+                        with open(os.path.join(path), 'r', encoding='utf-8') as f:
+                            menus = json.load(f)
+                    except Exception as e:
+                        print(e)
+                res['menus'] = menus
                 return JsonResponse({'code': 200, 'msg': '', 'data': res})
             return JsonResponse({'code': 500, 'msg': "用户不存在", 'data': ''})
         except Exception as e:
@@ -60,7 +82,6 @@ class UserInfo(APIView):
             if 'config' in data:
                 config = data.get("config")
 
-
                 token = request.META.get("HTTP_X_TOKEN", None)
                 salt = 'ssasdgf14sd4s5gf4s5s4fs'
                 payload = jwt.decode(token, salt, True)
@@ -71,14 +92,11 @@ class UserInfo(APIView):
                     obj.update(phone=phone)
                     obj.update(email=email)
                     obj.update(username=username)
-                    return JsonResponse({'code': 200,'status': True, 'msg': '修改成功'})
-                return JsonResponse({'code': 500,'status': False, 'msg': '用户不存在'})
-            return JsonResponse({'code': 500,'status': False, 'msg': '缺少config'})
+                    return JsonResponse({'code': 200, 'status': True, 'msg': '修改成功'})
+                return JsonResponse({'code': 500, 'status': False, 'msg': '用户不存在'})
+            return JsonResponse({'code': 500, 'status': False, 'msg': '缺少config'})
         except Exception as e:
             print(e)
             return JsonResponse({'status': False, 'msg': '%s' % e})
-
-
-
 
 #     // 要发送多次请求  把列表 变成了字段传到后台？？？？？？？？？？？？？？  前段里面搜索 这个

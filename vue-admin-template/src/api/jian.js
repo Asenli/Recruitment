@@ -7,3 +7,10 @@ export function save_data(data) {
     data
   })
 }
+
+export function station_data() {
+  return request({
+    url: '/position',
+    method: 'get'
+  })
+}

@@ -10,12 +10,12 @@ from django.utils import timezone
 
 from django.contrib.auth.models import AbstractUser
 
-class User(AbstractUser):
 
+class User(AbstractUser):
     sex = (
         ('male', '男'),
         ('female', '女')
-        )
+    )
     # 头像
     img = models.ImageField(upload_to='static/upload')
     # 手机号
@@ -61,6 +61,20 @@ class Position(models.Model):
     add_time = models.DateTimeField('新增日期', default=timezone.now)
     # 公司
     company = models.CharField(max_length=50)
+
     class Meta:
         db_table = 'rcw_position'
         verbose_name = verbose_name_plural = '职位表'
+
+
+class Roles(models.Model):
+    """
+    角色列表
+    """
+    # 角色名称
+    name = models.CharField(max_length=50)
+    # 0 总管理员 1 二级管理员  2 普通用户
+    user_id = models.IntegerField(default=2)
+    class Meta:
+        db_table = 'rcw_role'
+        verbose_name = verbose_name_plural = '角色列表'

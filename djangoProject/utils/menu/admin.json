@@ -1,0 +1,79 @@
+[
+  {
+    "path": "/system",
+    "redirect": "/menu",
+    "component": "Layout",
+    "meta": {
+      "title": "系统管理",
+      "icon": "form"
+    },
+    "children": [
+      {
+        "path": "/menu",
+        "name": "menu",
+        "component": "menu/index",
+        "meta": {
+          "title": "简历筛选1",
+          "icon": "table"
+        }
+      },
+      {
+        "path": "/roles",
+        "name": "roles",
+        "component": "roles/index",
+        "meta": {
+          "title": "简历管理",
+          "icon": "table"
+        }
+      },
+      {
+        "path": "/administrator",
+        "name": "administrator",
+        "component": "dashboard/index",
+        "meta": {
+          "title": "招聘信息",
+          "icon": "table"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/menu",
+    "component": "Layout",
+    "redirect": "/menu",
+    "children": [{
+      "path": "menu",
+      "name": "menu",
+      "component": "menu/index",
+       "meta": {
+          "title": "简历筛选1",
+          "icon": "table"
+        }
+    }]
+  },
+  {
+    "path": "/roles",
+    "component": "Layout",
+    "redirect": "/roles",
+    "children": [{
+      "path": "roles",
+      "name": "roles",
+      "component": "roles/index",
+       "meta": {
+          "title": "简历管理",
+          "icon": "table"
+        }
+    }]
+  },
+   {
+    "path": "/",
+    "component": "Layout",
+    "redirect": "/dashboard",
+    "children": [{
+      "path": "dashboard",
+      "name": "dashboard",
+      "component": "dashboard/index",
+      "meta": { "title": "岗位信息", "icon": "dashboard" }
+    }]
+  }
+]
