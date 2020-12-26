@@ -319,6 +319,25 @@ export default {
       datas['phone'] = this.form.mobile
       datas['email'] = this.form.email
       datas['username'] = this.form.name
+      datas['education'] = this.form.education
+      datas['name'] = this.form.name
+      datas['date0'] = this.form.date0
+      datas['date1'] = this.form.date1
+      datas['major'] = this.form.major
+      datas['workYear'] = this.form.workYear
+      datas['major'] = this.form.major
+      datas['phone'] = this.form.mobile
+      datas['city'] = this.form.city
+      datas['sex'] = this.form.sex
+      datas['email'] = this.form.email
+      datas['sex'] = this.form.sex
+      datas['address'] = this.form.address
+      datas['age'] = this.form.age
+      datas['statu'] = this.form.statu
+      datas['myCotent'] = this.myCotent
+      datas['expect'] = this.expect
+      datas['sureWorks'] = this.sureWorks
+
       // datas['myCotent'] = this.myCotent
       // // 当前状态
       // datas['statu'] = this.statu

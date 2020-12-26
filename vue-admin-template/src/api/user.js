@@ -22,3 +22,10 @@ export function logout() {
     method: 'post'
   })
 }
+export function subForm(data) {
+  return request({
+    url: '/register',
+    method: 'post',
+    data
+  })
+}

@@ -39,26 +39,26 @@ class Register(APIView):
             email = request.data.get('email')
             obj = User.objects.filter(username=username).first()
             if obj:
-                return JsonResponse({'status': False, 'msg': '用户名已存在'})
+                return JsonResponse({'code': 200,'status': False, 'msg': '用户名已存在'})
             if email == "":
                 # 验证邮箱
-                return JsonResponse({'msg': '无效邮箱', 'status': False})
+                return JsonResponse({'code': 200,'msg': '无效邮箱', 'status': False})
             if phone == "":
                 # 验证邮箱
-                return JsonResponse({'msg': '请填写正确手机号', 'status': False})
+                return JsonResponse({'code': 200,'msg': '请填写正确手机号', 'status': False})
             if password == "":
-                return JsonResponse({'msg': '请填写密码', 'status': False})
+                return JsonResponse({'code': 200,'msg': '请填写密码', 'status': False})
             if password != password2:
-                return JsonResponse({'msg': '两次密码不一致', 'status': False})
+                return JsonResponse({'code': 200,'msg': '两次密码不一致', 'status': False})
             # auth
             # user = User.objects.create_user(email=email, username=username, password=password, phone=phone)
             user = User.objects.create(email=email, username=username, password=make_password(password),
-                                            phone=phone)
-            Roles.objects.create(user_id=user.id, name='sysadmin')
+                                       phone=phone)
+            Roles.objects.create(user_id=user.id, name='sysadm')
             user.save()
-            return JsonResponse({'msg': '注册成功', 'status': True})
+            return JsonResponse({'code': 200, 'msg': '注册成功', 'status': True})
         except Exception as e:
-            ret = {'status': False, 'msg': ("请求异常: s%" % e)}
+            ret = {'code': 500,'status': False, 'msg': ("请求异常: s%") % e}
         return JsonResponse(ret)
 
 
@@ -77,10 +77,12 @@ class AuthView(APIView):
             pas = request.data.get('password')
             # 检查账户是否存在
             # user = auth.authenticate(request, username=usr, password=pas)
-            user = User.objects.get(username=usr)
+            user = User.objects.filter(username=usr).first()
+            if not user:
+                return JsonResponse({'code': 200,'statu': False ,'msg': '账户不存在', "data": {}})
             # 检查密码
             if not check_password(pas, user.password):
-                return JsonResponse({'code': 400, 'mes': '账户或密码错误'})
+                return JsonResponse({'code': 500,'statu': False, 'msg': '账户或密码错误', "data": {}})
             salt = 'ssasdgf14sd4s5gf4s5s4fs'
 
             # 构造header
@@ -98,11 +100,11 @@ class AuthView(APIView):
             # print({'code': 200, 'msg': "成功",
             #                      'data': {"token": token, "id": user.id, "username": user.username}
             #                      })
-            return JsonResponse({'code': 200, 'msg': "成功",
+            return JsonResponse({'code': 200, 'msg': "成功",'statu': True,
                                  'data': {"token": token, "id": user.id, "username": user.username}
                                  })
         except Exception as e:
-            ret = {'code': 500, 'msg': "登录失败 %e" % e,
+            ret = {'code': 500, 'msg': "登录失败 %e" % e,'statu': False,
                    'data': {"token": '', "id": '', "username": ''}
                    }
             return JsonResponse(ret)

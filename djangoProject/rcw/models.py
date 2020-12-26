@@ -12,14 +12,14 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    sex = (
-        ('male', '男'),
-        ('female', '女')
-    )
+    # sex = (
+    #     ('male', '男'),
+    #     ('female', '女')
+    # )
     # 头像
     img = models.ImageField(upload_to='static/upload')
     # 手机号
-    phone = models.CharField(max_length=13)
+    phone = models.CharField(max_length=13, null=True)
     # 注册时间
     add_time = models.DateTimeField(auto_now_add=True)
     # 用户类型 1 普通用户 0 超级用户
@@ -28,6 +28,21 @@ class User(AbstractUser):
     # 简历
     config = models.CharField(max_length=1024, null=True)
 
+    education = models.CharField(max_length=10, null=True)
+    name = models.CharField(max_length=15, null=True)
+    date0 = models.DateTimeField(null=True)
+    date1 = models.DateTimeField(null=True)
+    major = models.CharField(max_length=25, null=True)
+    workYear = models.CharField(max_length=10, null=True)
+    city = models.CharField(max_length=10, null=True)
+    address = models.CharField(max_length=50, null=True)
+    email = models.CharField(max_length=20, null=True)
+    age = models.CharField(max_length=10, null=True)
+    myCotent = models.CharField(max_length=300, null=True)
+    statu = models.CharField(max_length=10, null=True)
+    expect = models.CharField(max_length=30, null=True)
+    sex = models.CharField(max_length=5, null=True)
+    sureWorks = models.CharField(max_length=200, null=True)
     # 声明表明
     class Meta:
         db_table = 'user'
@@ -75,6 +90,21 @@ class Roles(models.Model):
     name = models.CharField(max_length=50)
     # 0 总管理员 1 二级管理员  2 普通用户
     user_id = models.IntegerField(default=2)
+
     class Meta:
         db_table = 'rcw_role'
         verbose_name = verbose_name_plural = '角色列表'
+
+
+class UserConfig(models.Model):
+    """
+    用户配置表
+    """
+    # 用户ID
+    user_id = models.IntegerField()
+    # 简历
+    config = models.CharField(max_length=1024, null=True)
+
+    """
+    {'form': {'education': '本科', 'name': 'lidongbing', 'date0': '', 'date1': '', 'major': '计算机', 'workYear': 1, 'mobile': 15008438839, 'city': '', 'sex': '男', 'email': '634163113@qq.com', 'address': '', 'age': '20'}, 'myCotent': '<p>熟悉网络编程，了解HTTP/TCP/UDP等网络协议、Ajax等开发技术；</p><p>熟悉python多线程，多进程开发；</p><p>熟练运用web 开发框架Django、flask开发框架；</p><p>熟练使用MySQL数据库，非关系型数据库Redis、MongoDB的使用;</p><p>熟悉vue、Bootstrap、HTML5、CSS、AJAX等前端;</p><ol><li>了解docker、odoo；</li></ol>', 'statu': '离职-随时到岗', 'expect': '', 'sureWorks': [{'checkboxGroup2': [], 'name': '', 'tag': '22', 'dept': '无线', 'vocation': 'python', 'date1': '2019-01-28', 'cotent': '2'}]}
+    """

@@ -1,9 +1,15 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.title" placeholder="输入条件" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.importance" placeholder="筛选条件" clearable style="width: 110px" class="filter-item">
+      <el-input v-model="listQuery.name" placeholder="输入姓名" style="width: 120px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-select v-model="listQuery.importance" placeholder="选择工作状态" clearable style="width: 150px" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
+      </el-select>
+      <el-select v-model="listQuery.importance2" placeholder="选择学历" clearable style="width: 150px" class="filter-item">
+        <el-option v-for="item in importanceOptions2" :key="item" :label="item" :value="item" />
+      </el-select>
+      <el-select v-model="listQuery.importance3" placeholder="选择专业" clearable style="width: 150px" class="filter-item">
+        <el-option v-for="item in importanceOptions3" :key="item" :label="item" :value="item" />
       </el-select>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         搜索
@@ -43,9 +49,14 @@
           <span>{{ scope.row.statu }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="学历" align="center">
+      <el-table-column label="专业" align="center">
         <template slot-scope="scope">
           {{ scope.row.major }}
+        </template>
+      </el-table-column>
+      <el-table-column label="学历" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.education }}
         </template>
       </el-table-column>
       <el-table-column class-name="status-col" label="年龄" align="center">
@@ -112,11 +123,14 @@ export default {
         page: 1,
         limit: 20,
         importance: [],
-        title: undefined,
-        type: undefined,
+        importance2: [],
+        importance3: [],
+        name: undefined,
         sort: '-id'
       },
-      importanceOptions: ['学历', '性别', '状态'],
+      importanceOptions: ['离职找工作', '在职找工作', '在职看机会', '暂时不找工作'],
+      importanceOptions2: ['专科', '本科', '硕士', '博士'],
+      importanceOptions3: [],
       gridData: [{
         date: '2016-05-02',
         name: 'John Smith',
@@ -126,6 +140,14 @@ export default {
         { value: '选项1', label: '黄金糕' }
       ],
       value: ''
+    }
+  },
+  watch: {
+    listQuery: {
+      deep: true,
+      handler() {
+        this.fetchData()
+      }
     }
   },
   mounted() {
@@ -168,6 +190,7 @@ export default {
       // 重新刷新列表数据
       fetchList(this.listQuery).then(datas => {
         // this.total = response.data.total
+        this.importanceOptions3 = datas['major_list']
         const data_list = []
         datas['data'].forEach(function(item, index) {
           data_list.push({ ...item, id: index })

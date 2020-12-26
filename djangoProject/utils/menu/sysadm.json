@@ -1,0 +1,35 @@
+[
+  {
+    "path": "/",
+    "component": "Layout",
+    "redirect": "/dashboard",
+    "children": [
+      {
+        "path": "roles",
+        "name": "roles",
+        "component": "roles/index",
+        "meta": {
+          "title": "我的简历",
+          "icon": "table"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/",
+    "component": "Layout",
+    "redirect": "/dashboard",
+    "children": [
+      {
+        "path": "dashboard",
+        "name": "dashboard",
+        "component": "dashboard/index",
+        "meta": {
+          "title": "岗位信息",
+          "icon": "dashboard"
+        }
+      }
+    ]
+  }
+
+]
