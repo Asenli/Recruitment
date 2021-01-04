@@ -253,7 +253,6 @@ export default {
             this.loading = false
           })
         } else {
-          debugger
           console.log('error submit!!')
           return false
         }

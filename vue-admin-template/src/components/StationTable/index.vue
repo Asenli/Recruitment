@@ -58,7 +58,6 @@ export default {
         station_data().then(data => {
           this.dataList = data.data
           console.log(this.dataList)
-          debugger
         }).catch(error => {
           reject(error)
         })

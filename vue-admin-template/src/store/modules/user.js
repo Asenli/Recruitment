@@ -24,6 +24,9 @@ const mutations = {
   SET_NAME: (state, name) => {
     state.name = name
   },
+  SET_ROLES: (state, roles) => {
+    state.roles = roles
+  },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
   },
@@ -67,7 +70,6 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
         const { menus, roles, username, avatar } = data
-        debugger
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
@@ -82,6 +84,7 @@ const actions = {
           hidden: true
         })
         commit('SET_ROLES', roles)
+        debugger
         commit('SET_NAME', username)
         commit('SET_AVATAR', avatar) // 角色
         // debugger  获取菜单列表
