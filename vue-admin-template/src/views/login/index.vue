@@ -59,7 +59,7 @@
       <div style="position:relative">
         <a style="padding-left: 20px;cursor: pointer;color:rgb(150, 150, 150);" @click="register">注册</a>
         <!--                    <router-link to="/">注册</router-link>-->
-        <a style="cursor: pointer;padding-left:10px;float: right;color: #969696;" @click="showDialog=true"> 忘记密码？</a>
+<!--        <a style="cursor: pointer;padding-left:10px;float: right;color: #969696;" @click="showDialog=true"> 忘记密码？</a>-->
         <!--        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">-->
         <!--          注册-->
         <!--        </el-button>-->
@@ -68,7 +68,7 @@
         <!--        </el-button>-->
       </div>
     </el-form>
-    <el-dialog title="注册" :visible.sync="toRegister" >
+    <el-dialog title="注册" :visible.sync="toRegister">
       <el-row class="register" style="">
         <el-col :span="12" style="width:100%;margin-top: 25px;">
           <div class="grid-content bg-purple-light">
@@ -83,21 +83,21 @@
                   class="demo-ruleForm"
                 >
                   <el-form-item label="账户名" class="input-left" prop="username">
-                    <el-input v-model="params.username"  placeholder="请输入字母或数字"/>
+                    <el-input v-model="params.username" placeholder="请输入字母或数字" />
                   </el-form-item>
                   <el-form-item class="input-left" prop="email">
                     <label slot="label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
-                    <el-input v-model="params.email"  placeholder="请输入邮箱" />
+                    <el-input v-model="params.email" placeholder="请输入邮箱" />
                   </el-form-item>
                   <el-form-item label="手机号" class="input-left" prop="phone">
-                    <el-input v-model.number="params.phone"  placeholder="请输入手机号"/>
+                    <el-input v-model.number="params.phone" placeholder="请输入手机号" />
                   </el-form-item>
                   <el-form-item label="设置密码" class="input-left" prop="password">
-                    <el-input v-model="params.password1" maxlength="20" show-password  placeholder="请输入秘密"/>
+                    <el-input v-model="params.password1" maxlength="20" show-password placeholder="请输入秘密" />
                     <span v-if="errMsg" style="font-size: 8px;color: red;">{{ errMsg }}</span>
                   </el-form-item>
                   <el-form-item maxlength="20" label="确认密码" class="input-left" prop="password">
-                    <el-input v-model="params.password2" show-password placeholder="请输入秘密"/>
+                    <el-input v-model="params.password2" show-password placeholder="请输入秘密" />
                     <span v-if="errMsg2" style="font-size: 8px;color: red;">{{ errMsg2 }}</span>
                   </el-form-item>
                 </el-form>
@@ -106,9 +106,9 @@
                   <span style="color: #ff552e">《人才公会使用协议》</span>
                   <span style="color: #a2a2a2;">&</span>
                   <span style="color: #ff552e">《隐私政策》</span>
-                </div >
+                </div>
                 <!--                <router-link to="/login">已有账号？去登录</router-link>-->
-                <div  style="text-align: center;">
+                <div style="text-align: center;">
                   <el-button type="primary" style="width: 300px;margin: 10px 0 10px 0;" @click="submitForm">确定
                   </el-button>
                 </div>
@@ -133,19 +133,51 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码至少六位数'))
       } else {
         callback()
       }
     }
     return {
+      rules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          {
+            message: '请输入用户名',
+            trigger: ['blur', 'change']
+          }
+        ],
+        // password: [
+        //   { required: true, message: '长度为6-12位，须包含字母、数字或特殊符号', trigger: 'blur' },
+        //   {
+        //     message: '密码长度为6-20位，须包含字母、数字',
+        //     trigger: ['blur', 'change']
+        //   }
+        // ],
+        email: [
+          { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+          {
+            type: 'email',
+            message: '请输入正确的邮箱地址',
+            pattern: /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+            trigger: ['blur', 'change']
+          }
+        ],
+        phone: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          {
+            pattern: /^[1][3-9][0-9]{9}$/,
+            message: '请输入正确的手机号码'
+          }
+        ]
+      },
       toRegister: false,
       params: {
         username: '',
@@ -207,8 +239,16 @@ export default {
           subForm(this.params).then(res => {
             console.log(res)
             if (res.status === false) {
-              alert(res.msg)
+              // alert(res.msg)
+              this.$message({
+                message: res.msg,
+                type: 'warning'
+              })
             } else {
+              this.$message({
+                message: res.msg,
+                type: 'success'
+              })
               this.register()
             }
             this.errInfo = false

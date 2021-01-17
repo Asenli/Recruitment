@@ -14,8 +14,13 @@
           </div>
           <div class="company-info">
             <p><span>{{ data.company }}</span></p>
-<!--            <p><span>建筑</span></p>-->
-            <p class="temptation"><span>绩效奖金</span><span>岗位晋升</span><span>午餐补助</span></p>
+            <!--            <p><span>建筑</span></p>-->
+            <!--            <p class="temptation"><span>绩效奖金</span><span>岗位晋升</span><span>午餐补助</span></p>-->
+            <p class="temptation">
+              <span>
+                {{ data.fuli }}
+              </span>
+            </p>
           </div>
         </div>
       </li>

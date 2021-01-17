@@ -1,6 +1,21 @@
 <template>
-  <div class="jianli" style="height: 100%;display: flex;flex-direction: column;    margin: 100px;">
-    <div style="margin-top: 5px;height: 10%;border: 1px solid #b6afaf;padding: 10px;">
+  <div class="jianli" style="height: 100%;display: flex;flex-direction: column;margin: 20px 100px 100px 100px;">
+    <div style="height: 35px;">
+      <div style="">
+        <span>期望职位：</span>
+        <el-input v-model="expect" style="width: 220px;" placeholder="请输入意向岗位" />
+        <span style="margin-left: 20px;">求职状态：</span>
+        <el-select v-model="statu" placeholder="请选择当前状态">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </div>
+    </div>
+    <div style="margin-top: 35px;height: 10%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
       <div class="basic-info">
         <p class="basic-name female" style="margin-top: 5px;">
           <span style="font-size: 25px;color: #333;font-weight: 600;">{{ form.name }}</span>
@@ -121,7 +136,7 @@
         </el-dialog>
       </div>
     </div>
-    <div style="margin-top: 5px;height: 30%;border: 1px solid #b6afaf;padding: 10px;">
+    <div style="margin-top: 30px;height: 30%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
       <p class="mynice">
         <span style="font-size: 26px;color: #333;font-weight: 600;"> 个人优势</span>
         <i class="el-icon-edit" @click="dialogFormVisible2 = true">编辑</i>
@@ -145,7 +160,7 @@
         </div>
       </el-dialog>
     </div>
-    <div style="margin-top: 5px;height: 40%;border: 1px solid #b6afaf;padding: 10px;">
+    <div style="margin-top: 30px;height: 40%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
       <div class="mynice">
         <span style="font-size: 26px;color: #333;font-weight: 600;"> 工作经历</span>
         <i class="el-icon-edit" @click="showDg3()">添加</i>
@@ -229,22 +244,7 @@
         </el-dialog>
       </div>
     </div>
-    <div style="height: 10%;padding: 10px;margin-top: 5px;">
-      <div style="margin-top: 1%;">
-        <span>求职期望：</span>
-        <el-input v-model="expect" style="width: 220px;" placeholder="请输入意向岗位" />
-        <span>求职状态：</span>
-        <el-select v-model="statu" placeholder="请选择当前状态">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </div>
-      <div style="text-align: center;margin-top: 4%;"><el-button size="small" type="primary" @click="save_info">保存</el-button></div>
-    </div>
+    <div style="text-align: center;margin-top: 4%;"><el-button size="small" type="primary" @click="save_info">保存</el-button></div>
   </div>
 </template>
 
@@ -349,7 +349,7 @@ export default {
       },
       dialogFormVisible: false,
       form: {
-        education: '本科',
+        education: '学历',
         name: 'XXX',
         // 出生
         date0: '',
@@ -361,7 +361,7 @@ export default {
         mobile: '00000000000',
         city: '',
         // 性别
-        sex: '男',
+        sex: '性别',
         email: 'xxxxx@qq.com',
         // 住址
         address: 'xxxxx区xxx街道',

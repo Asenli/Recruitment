@@ -81,6 +81,7 @@ class Position(models.Model):
     add_time = models.DateTimeField('新增日期', default=timezone.now)
     # 公司
     company = models.CharField(max_length=50)
+    fuli = models.CharField(max_length=50)
 
     class Meta:
         db_table = 'rcw_position'

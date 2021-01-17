@@ -38,14 +38,17 @@ class Position(APIView):
 
         data = request.data
         name = data.get('name')
+        city = data.get('city')
         salary = data.get('salary')
         experience = data.get('experience')
         education = data.get('education')
+        fuli = data.get('fuli')
         keyword = data.get('keyword')
         company = data.get('company')
         try:
             models.Position.objects.create(name=name, salary=salary, experience=experience, education=education,
                                            keyword=keyword,
+                                           fuli=fuli,
                                            company=company)
             return JsonResponse({'status': True, 'msg': '新增成功'})
         except Exception as e:
