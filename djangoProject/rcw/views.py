@@ -1,21 +1,15 @@
-import datetime
-import json
+
 import smtplib
-import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 from django.contrib import auth
-from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password, check_password
-from django.db.models import Q
 from django.http import JsonResponse
-from jwt import exceptions
 from rest_framework.views import APIView
 
 from common.utils import random_str
 from djangoProject.settings import EMAIL_HOST_USER
-from rcw import models
 from rcw.models import User, Roles
 import jwt
 import datetime
@@ -79,10 +73,10 @@ class AuthView(APIView):
             # user = auth.authenticate(request, username=usr, password=pas)
             user = User.objects.filter(username=usr).first()
             if not user:
-                return JsonResponse({'code': 200,'statu': False ,'msg': '账户不存在', "data": {}})
+                return JsonResponse({'code': 200, 'statu': False, 'msg': '账户不存在', "data": {}})
             # 检查密码
             if not check_password(pas, user.password):
-                return JsonResponse({'code': 500,'statu': False, 'msg': '账户或密码错误', "data": {}})
+                return JsonResponse({'code': 500, 'statu': False, 'msg': '账户或密码错误', "data": {}})
             salt = 'ssasdgf14sd4s5gf4s5s4fs'
 
             # 构造header
@@ -104,6 +98,7 @@ class AuthView(APIView):
                                  'data': {"token": token, "id": user.id, "username": user.username}
                                  })
         except Exception as e:
+            print(e)
             ret = {'code': 500, 'msg': "登录失败 %e" % e,'statu': False,
                    'data': {"token": '', "id": '', "username": ''}
                    }

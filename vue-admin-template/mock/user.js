@@ -4,7 +4,7 @@ const tokens = {
     token: 'admin-token'
   },
   editor: {
-    token: 'editor-token'
+    token: 'sysadm-token'
   }
 }
 
@@ -16,10 +16,10 @@ const users = {
     name: 'Super Admin'
   },
   'editor-token': {
-    roles: ['editor'],
-    introduction: 'I am an editor',
+    roles: ['sysadm'],
+    introduction: 'I am an sysadm',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
+    name: 'Normal sysadm'
   }
 }
 

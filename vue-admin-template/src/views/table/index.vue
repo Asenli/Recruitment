@@ -74,7 +74,7 @@
           <el-tag :type="scope.row.email | statusFilter">{{ scope.row.email }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time">
+      <el-table-column align="center" prop="created_at" label="更新时间">
         <template slot-scope="scope">
           <i class="el-icon-time" />
           <span>{{ scope.row.add_time }}</span>
@@ -128,7 +128,7 @@ export default {
         name: undefined,
         sort: '-id'
       },
-      importanceOptions: ['离职找工作', '在职找工作', '在职看机会', '暂时不找工作'],
+      importanceOptions: ['离职-随时到岗', '在职-月内到岗', '在职-考虑机会', '在职-暂不考虑'],
       importanceOptions2: ['专科', '本科', '硕士', '博士'],
       importanceOptions3: [],
       gridData: [{

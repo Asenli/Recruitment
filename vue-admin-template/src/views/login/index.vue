@@ -20,7 +20,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="Username"
+          placeholder="输入用户名"
           name="username"
           type="text"
           tabindex="1"
@@ -37,7 +37,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="输入密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -68,8 +68,8 @@
         <!--        </el-button>-->
       </div>
     </el-form>
-    <el-dialog title="注册" :visible.sync="toRegister">
-      <el-row class="register">
+    <el-dialog title="注册" :visible.sync="toRegister" >
+      <el-row class="register" style="">
         <el-col :span="12" style="width:100%;margin-top: 25px;">
           <div class="grid-content bg-purple-light">
             <div style="width: 100%">
@@ -83,34 +83,38 @@
                   class="demo-ruleForm"
                 >
                   <el-form-item label="账户名" class="input-left" prop="username">
-                    <el-input v-model="params.username" />
+                    <el-input v-model="params.username"  placeholder="请输入字母或数字"/>
                   </el-form-item>
                   <el-form-item class="input-left" prop="email">
                     <label slot="label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
-                    <el-input v-model="params.email" />
+                    <el-input v-model="params.email"  placeholder="请输入邮箱" />
                   </el-form-item>
                   <el-form-item label="手机号" class="input-left" prop="phone">
-                    <el-input v-model.number="params.phone" />
+                    <el-input v-model.number="params.phone"  placeholder="请输入手机号"/>
                   </el-form-item>
                   <el-form-item label="设置密码" class="input-left" prop="password">
-                    <el-input v-model="params.password1" maxlength="20" show-password />
+                    <el-input v-model="params.password1" maxlength="20" show-password  placeholder="请输入秘密"/>
                     <span v-if="errMsg" style="font-size: 8px;color: red;">{{ errMsg }}</span>
                   </el-form-item>
                   <el-form-item maxlength="20" label="确认密码" class="input-left" prop="password">
-                    <el-input v-model="params.password2" show-password />
+                    <el-input v-model="params.password2" show-password placeholder="请输入秘密"/>
                     <span v-if="errMsg2" style="font-size: 8px;color: red;">{{ errMsg2 }}</span>
                   </el-form-item>
                 </el-form>
-                <div style="font-size: 0.1rem;margin-bottom: 1rem">
+                <div style="font-size: 0.1rem;text-align: center;">
                   <span style="color: #a2a2a2;">注册即同意</span>
                   <span style="color: #ff552e">《人才公会使用协议》</span>
                   <span style="color: #a2a2a2;">&</span>
                   <span style="color: #ff552e">《隐私政策》</span>
-                </div>
-                <a style="cursor: pointer" @click="register">已有账号？去登录</a>
+                </div >
                 <!--                <router-link to="/login">已有账号？去登录</router-link>-->
-                <el-button type="primary" style="width: 300px;margin: 10px 0 10px 0;" @click="submitForm">确定
-                </el-button>
+                <div  style="text-align: center;">
+                  <el-button type="primary" style="width: 300px;margin: 10px 0 10px 0;" @click="submitForm">确定
+                  </el-button>
+                </div>
+                <div style="text-align: center;">
+                  <a style="cursor: pointer" @click="register">已有账号？去登录</a>
+                </div>
               </div>
             </div>
           </div>
@@ -144,17 +148,17 @@ export default {
     return {
       toRegister: false,
       params: {
-        username: 'lidongbing',
-        phone: '15008438840',
-        password1: 'ldb886718959',
-        password2: 'ldb886718959',
-        email: '634163114@qq.com',
+        username: '',
+        phone: '',
+        password1: '',
+        password2: '',
+        email: '',
         // 验证码
         code: ''
       },
       loginForm: {
-        username: 'lidongbing',
-        password: 'ldb886718959'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -370,5 +374,11 @@ $light_gray: #eee;
     cursor: pointer;
     user-select: none;
   }
+}
+
+.login-container .el-input {
+  display: inline-block;
+  height: 47px;
+  width: 85%;
 }
 </style>

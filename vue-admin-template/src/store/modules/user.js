@@ -7,8 +7,10 @@ const getDefaultState = () => {
     token: getToken(),
     name: '',
     avatar: '',
-    menus: ''
+    roles: '',
+    menus: '',
     // 新增菜单权限
+    user_id: ''
   }
 }
 
@@ -33,6 +35,10 @@ const mutations = {
   // 新增
   SET_MENUS: (state, menus) => {
     state.menus = menus
+  },
+  // user id
+  SET_USER_ID: (state, id) => {
+    state.user_id = id
   }
 }
 
@@ -46,6 +52,8 @@ const actions = {
         if (response.statu === true) {
           const { data } = response
           commit('SET_TOKEN', data.token)
+          localStorage.setItem('user_id', data.id)
+          commit('SET_USER_ID', data.id)
           setToken(data.token)
           resolve()
           this.loading = false
@@ -84,7 +92,6 @@ const actions = {
           hidden: true
         })
         commit('SET_ROLES', roles)
-        debugger
         commit('SET_NAME', username)
         commit('SET_AVATAR', avatar) // 角色
         // debugger  获取菜单列表

@@ -1,129 +1,127 @@
 <template>
-  <div class="main" style="margin: 36px;">
-    <div class="basic-info">
-      <el-button style="float: right;" size="small" type="primary" @click="save_info">保存</el-button>
-      <p class="basic-name female">
-        <span style="font-size: 25px;color: #333;font-weight: 600;">{{ form.name }}</span>
-        <i class="el-icon-edit" @click="dialogFormVisible = true">编辑</i>
-      </p>
-      <p>
-        <span class="basic-company">软通动力成都分公司</span>
-        <span> / </span>
-        <span class="basic-job">Python</span>
-      </p>
-      <p class="basic-self">
-        <span class="basic-exp">{{ form.workYear }} 年工作经验</span>
-        <span class="basic-edu"> / {{ form.education === '本科' ? '本科 ' + '. 统招' : '专科' }}  </span>
-        <span class="basic-age"> / {{ form.major }}</span>
-        <span class="basic-age"> / {{ form.age }}岁</span>
-        <span class="basic-age"> / {{ form.sex }}</span>
-      </p>
-      <p>
-        <span class="basic-tel">
-          <i class="el-icon-mobile" /><span>{{ form.mobile }}</span>
-        </span>
-        <span class="basic-email">
-          <i class="el-icon-message" /><span>{{ form.email }}</span>
-        </span>
-      </p>
-      <p><span>
-        {{ form.address }}
-      </span></p>
-      <el-dialog title="基本信息" :visible.sync="dialogFormVisible">
-        <el-form :model="dialog_form" :rules="rules" :inline="true">
-          <el-form-item label="姓名" label-width="119px">
-            <el-input
-              v-model="dialog_form.name"
-              type="text"
-              placeholder="请输入内容"
-              maxlength="20"
-              style="width: 140px"
-            />
-          </el-form-item>
-          <el-form-item label="生日" label-width="119px">
-            <el-date-picker v-model="dialog_form.date0" type="date" placeholder="年月日" style="width: 140px" />
-          </el-form-item>
-          <el-form-item label="年龄" label-width="119px">
-            <el-input
-              v-model="dialog_form.age"
-              oninput="if(value.length>2)value=value.replace(/[^\d]/g,'').slice(0,2)"
-              placeholder="请输入年龄"
-              type="number"
-              maxlength="2"
-              style="width: 140px"
-            />
-          </el-form-item>
-          <el-form-item label="学历" label-width="119px">
-            <el-select v-model="dialog_form.education" style="width: 140px" placeholder="请选择">
-              <el-option
-                v-for="item in options_education"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+  <div class="jianli" style="height: 100%;display: flex;flex-direction: column;    margin: 100px;">
+    <div style="margin-top: 5px;height: 10%;border: 1px solid #b6afaf;padding: 10px;">
+      <div class="basic-info">
+        <p class="basic-name female" style="margin-top: 5px;">
+          <span style="font-size: 25px;color: #333;font-weight: 600;">{{ form.name }}</span>
+          <i class="el-icon-edit" @click="dialogFormVisible = true">编辑</i>
+        </p>
+        <p style="margin-top: 5px;">
+          <span class="basic-company">{{ form.company }}</span>
+          <!--            <span> / </span>-->
+          <!--            <span class="basic-job"></span>-->
+        </p>
+        <p class="basic-self" style="margin-top: 5px;">
+          <span class="basic-exp">{{ form.workYear }} 年工作经验</span>
+          <span class="basic-edu"> / {{ form.education === '本科' ? '本科 ' + '. 统招' : '专科' }}  </span>
+          <span class="basic-age"> / {{ form.major }}</span>
+          <span class="basic-age"> / {{ form.age }}岁</span>
+          <span class="basic-age"> / {{ form.sex }}</span>
+        </p>
+        <p>
+          <span class="basic-tel">
+            <i class="el-icon-mobile" /><span>{{ form.mobile }}</span>
+          </span>
+          <span class="basic-email">
+            <i class="el-icon-message" /><span>{{ form.email }}</span>
+          </span>
+        </p>
+        <p><span>
+          {{ form.address }}
+        </span></p>
+        <el-dialog title="基本信息" :visible.sync="dialogFormVisible">
+          <el-form :model="dialog_form" :rules="rules" :inline="true">
+            <el-form-item label="姓名" label-width="119px">
+              <el-input
+                v-model="dialog_form.name"
+                type="text"
+                placeholder="请输入内容"
+                maxlength="20"
+                style="width: 140px"
               />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="专业" label-width="119px">
-            <el-input
-              v-model="dialog_form.major"
-              placeholder="请输入专业"
-              type="text"
-              style="width: 140px"
-            />
-          </el-form-item>
-          <el-form-item label="性别" label-width="119px">
-            <el-select v-model="dialog_form.sex" style="width: 140px" placeholder="请选择">
-              <el-option
-                v-for="item in options_sex"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+            </el-form-item>
+            <el-form-item label="生日" label-width="119px">
+              <el-date-picker v-model="dialog_form.date0" type="date" placeholder="年月日" style="width: 140px" />
+            </el-form-item>
+            <el-form-item label="年龄" label-width="119px">
+              <el-input
+                v-model="dialog_form.age"
+                oninput="if(value.length>2)value=value.replace(/[^\d]/g,'').slice(0,2)"
+                placeholder="请输入年龄"
+                type="number"
+                maxlength="2"
+                style="width: 140px"
               />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="电话" label-width="119px">
-            <el-input
-              v-model="dialog_form.mobile"
-              oninput="if(value.length>11)value=value.replace(/[^\d]/g,'').slice(0,11)"
-              placeholder="请输入电话"
-              type="text"
-              maxlength="13"
-              style="width: 140px"
-              clearable
-            />
-          </el-form-item>
-          <el-form-item label="邮箱" label-width="119px" prop="buyerEmail" required>
-            <el-input v-model="dialog_form.buyerEmail" style="width: 140px" clearable />
-          </el-form-item>
-          <el-form-item label="工作经验" label-width="119px">
-            <el-input
-              v-model="dialog_form.workYear"
-              oninput="if(value.length>2)value=value.replace(/[^\d]/g,'').slice(0,2)"
-              placeholder="请输入年限"
-              type="number"
-              maxlength="2"
-              style="width: 130px"
-            />年
-          </el-form-item>
-          <el-form-item v-show="false" label="开始工作" label-width="119px">
-            <el-date-picker
-              v-model="dialog_form.date1"
-              type="month"
-              placeholder="年月"
-              style="width: 140px"
-            />
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="sureBase()">确 定</el-button>
-        </div>
-      </el-dialog>
+            </el-form-item>
+            <el-form-item label="学历" label-width="119px">
+              <el-select v-model="dialog_form.education" style="width: 140px" placeholder="请选择">
+                <el-option
+                  v-for="item in options_education"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item label="专业" label-width="119px">
+              <el-input
+                v-model="dialog_form.major"
+                placeholder="请输入专业"
+                type="text"
+                style="width: 140px"
+              />
+            </el-form-item>
+            <el-form-item label="性别" label-width="119px">
+              <el-select v-model="dialog_form.sex" style="width: 140px" placeholder="请选择">
+                <el-option
+                  v-for="item in options_sex"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item label="电话" label-width="119px">
+              <el-input
+                v-model="dialog_form.mobile"
+                oninput="if(value.length>11)value=value.replace(/[^\d]/g,'').slice(0,11)"
+                placeholder="请输入电话"
+                type="text"
+                maxlength="13"
+                style="width: 140px"
+                clearable
+              />
+            </el-form-item>
+            <el-form-item label="邮箱" label-width="119px" prop="buyerEmail" required>
+              <el-input v-model="dialog_form.buyerEmail" style="width: 140px" clearable />
+            </el-form-item>
+            <el-form-item label="工作经验" label-width="119px">
+              <el-input
+                v-model="dialog_form.workYear"
+                oninput="if(value.length>2)value=value.replace(/[^\d]/g,'').slice(0,2)"
+                placeholder="请输入年限"
+                type="number"
+                maxlength="2"
+                style="width: 130px"
+              />年
+            </el-form-item>
+            <el-form-item v-show="false" label="开始工作" label-width="119px">
+              <el-date-picker
+                v-model="dialog_form.date1"
+                type="month"
+                placeholder="年月"
+                style="width: 140px"
+              />
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="sureBase()">确 定</el-button>
+          </div>
+        </el-dialog>
+      </div>
     </div>
-    <div
-      class="my-nice-info"
-      style="text-align: left;"
-    >
+    <div style="margin-top: 5px;height: 30%;border: 1px solid #b6afaf;padding: 10px;">
       <p class="mynice">
         <span style="font-size: 26px;color: #333;font-weight: 600;"> 个人优势</span>
         <i class="el-icon-edit" @click="dialogFormVisible2 = true">编辑</i>
@@ -146,12 +144,17 @@
           <el-button type="primary" @click="myNiceSub">确 定</el-button>
         </div>
       </el-dialog>
+    </div>
+    <div style="margin-top: 5px;height: 40%;border: 1px solid #b6afaf;padding: 10px;">
       <div class="mynice">
         <span style="font-size: 26px;color: #333;font-weight: 600;"> 工作经历</span>
         <i class="el-icon-edit" @click="showDg3()">添加</i>
         <div v-for="(sureWork, i) in sureWorks" :key="i" class="work-class">
+          <!--          {{ sureWork }}-->
           <div v-if="sureWork" class="work-name">
             <span>{{ sureWork.name }}</span>
+            <span>{{ sureWork.dept }}</span>
+            <span>{{ sureWork.vocation }}</span>
             <span v-if="sureWork.date1" style="margin-left: 10%;">{{ sureWork.date1[0] }}-{{ sureWork.date1[1] }}</span>
             <i class="el-icon-edit" style="padding-left: 10px;" @click="showDg3(sureWork, i)">编辑</i>
             <i
@@ -160,8 +163,8 @@
               @click="deleteDg3(i)"
             >删除</i>
           </div>
-          <p style="margin-left: 20%;">{{ sureWork.vocation }}</p>
-          <div class="ql-editor" style="margin: 2%;" v-html="sureWork.cotent" />
+          <!--          <p style="margin-left: 20%;">{{ sureWork.vocation }}</p>-->
+          <div class="ql-editor" style="margin: 2%;" v-html="sureWork.content" />
         </div>
         <el-dialog title="工作经历" :visible.sync="dialogFormVisible3">
           <el-form :model="work">
@@ -193,7 +196,13 @@
             </el-form-item>
             <el-form-item label-width="120px" label="工作内容">
               <!--              // 富文本框-->
-              <tinymce v-model="content" :height="300" />
+              <quill-editor
+                ref="myTextEditor"
+                v-model="content"
+                :options="editorOption"
+                @blur="onEditorBlur($event)"
+                @focus="onEditorFocus($event)"
+              />
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -219,6 +228,8 @@
           </div>
         </el-dialog>
       </div>
+    </div>
+    <div style="height: 10%;padding: 10px;margin-top: 5px;">
       <div style="margin-top: 1%;">
         <span>求职期望：</span>
         <el-input v-model="expect" style="width: 220px;" placeholder="请输入意向岗位" />
@@ -232,22 +243,22 @@
           />
         </el-select>
       </div>
+      <div style="text-align: center;margin-top: 4%;"><el-button size="small" type="primary" @click="save_info">保存</el-button></div>
     </div>
   </div>
 </template>
 
 <script>
-import Tinymce from '@/components/Tinymce'
+// import Tinymce from '@/components/Tinymce'
 import { save_data } from '@/api/jian'
 import { quillEditor } from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
-// import { getInfo } from '../../api/user'
-// import { getToken } from '@/utils/auth'
+import { jian_info } from '../../api/jian'
 export default {
   name: 'Index',
-  components: { Tinymce, quillEditor },
+  components: { quillEditor },
   data() {
     var checkEmail = (rule, value, callback) => {
       const mailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
@@ -263,6 +274,7 @@ export default {
       }, 100)
     }
     return {
+      user_id: localStorage.getItem('user_id'),
       // 个人优势弹框
       editorOption: {
         theme: 'snow',
@@ -294,9 +306,6 @@ export default {
         label: '博士'
       }],
       rules: {
-        // buyerPhone: [
-        //   { validator: checkPhone, trigger: 'blur' }
-        // ],
         buyerEmail: [
           { validator: checkEmail, trigger: 'blur' }
         ]
@@ -304,7 +313,7 @@ export default {
       dialogFormVisible3: false,
       dialogFormVisible4: false,
       // 个人优势编辑内容
-      myYouShi: '<p>熟悉网络编程，了解HTTP/TCP/UDP等网络协议、Ajax等开发技术；</p><p>熟悉python多线程，多进程开发；</p><p>熟练运用web 开发框架Django、flask开发框架；</p><p>熟练使用MySQL数据库，非关系型数据库Redis、MongoDB的使用;</p><p>熟悉vue、Bootstrap、HTML5、CSS、AJAX等前端;</p><ol><li>了解docker、odoo；</li></ol>',
+      myYouShi: '',
       // 个人优势确认后
       myCotent: '',
       tagList: ['电商', '体育', '教育', '广告营销', '本地生活', '分类信息',
@@ -320,13 +329,13 @@ export default {
       // 确认工作经历
       sureWorks: [
         {
-          'checkboxGroup2': [],
+          'checkboxGroup2': [''],
           'name': '',
-          'tag': '22',
-          'dept': '无线',
-          'vocation': 'python',
-          'date1': '2019-01-28',
-          'cotent': '2'
+          'tag': '1',
+          'dept': '',
+          'vocation': '',
+          'date1': '',
+          'content': ''
         }
       ],
       work: {
@@ -347,13 +356,13 @@ export default {
         // 工作时间
         date1: '',
         // 专业
-        major: '计算机',
+        major: 'xxx',
         workYear: 1,
-        mobile: '15000000000',
+        mobile: '00000000000',
         city: '',
         // 性别
         sex: '男',
-        email: '6666666@qq.com',
+        email: 'xxxxx@qq.com',
         // 住址
         address: 'xxxxx区xxx街道',
         age: 20
@@ -396,12 +405,68 @@ export default {
       }
       ],
       content:
-        `<h1 style="text-align: center;">请填写工作经历</h1><ul>
-        <li>Our <a href="//www.tinymce.com/docs/">documentation</a> is a great resource for learning how to configure TinyMCE.</li><li>Have a specific question? Visit the <a href="https://community.tinymce.com/forum/">Community Forum</a>.</li><li>We also offer enterprise grade support as part of <a href="https://tinymce.com/pricing">TinyMCE premium subscriptions</a>.</li>
+        `<ul>
+        <li>工作职责...</li><li>工作内容...</li><li>工作成果...</li>
       </ul>`
     }
   },
+  created() {
+    this.getInfo()
+  },
   methods: {
+    getInfo() {
+      return new Promise((resolve, reject) => {
+        jian_info(this.user_id).then(data => {
+          this.form = data.data
+          this.dialog_form = data.data
+          this.statu = data.data.statu
+          this.myCotent = data.data.myCotent
+          this.expect = data.data.expect
+          this.sureWorks = data.data.sureWorks
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    deleteDg3(i) {
+      // 移除删除工作经历
+      this.sureWorks.splice(i, 1)
+    },
+    showDg3(data, i) {
+      // 工作经历弹框
+      if (data) {
+        this.work = data
+        this.editTag = i
+      } else {
+        this.work = {
+          'name': '',
+          'dept': '',
+          'vocation': '',
+          'date1': ''
+        }
+      }
+      this.dialogFormVisible3 = true
+    },
+    // 编辑个人经历
+    myWork(data, i) {
+      console.log(this.work)
+      const sureWork = {
+        name: this.work.name,
+        tag: this.workTag,
+        dept: this.work.dept,
+        vocation: this.work.vocation,
+        date1: this.work.date1,
+        content: this.content
+      }
+      if (this.editTag) {
+        this.sureWorks.splice(i, 1, data)
+        this.editTag = ''
+      } else {
+        this.sureWorks.push(sureWork)
+      }
+      console.log(this.sureWorks)
+      this.dialogFormVisible3 = false
+    },
     // 选择标签
     selectRadio(data) {
       this.dialogFormVisible4 = false
@@ -409,6 +474,9 @@ export default {
     },
     onEditorBlur() {
       // 失去焦点事件
+    },
+    onEditorFocus(data) {
+      console.log(data)
     },
     onEditorChange() {
       // 内容改变事件
@@ -430,49 +498,28 @@ export default {
       this.dialogFormVisible = false
       this.form = this.dialog_form
     },
-    showDg3(data, i) {
-      // 工作经历弹框
-      if (data) {
-        this.work = data
-        this.editTag = i
-      } else {
-        this.work = {
-          'name': '',
-          'tag': '',
-          'dept': '',
-          'vocation': '',
-          'date1': '',
-          'cotent': ''
-        }
-      }
-      this.dialogFormVisible3 = true
-    },
+    // 保存简历
     save_info() {
       const datas = {}
-      datas['username'] = this.dialog_form.name
-      datas['education'] = this.dialog_form.education
-      datas['name'] = this.dialog_form.name
-      datas['date0'] = this.dialog_form.date0
-      datas['date1'] = this.dialog_form.date1
-      datas['major'] = this.dialog_form.major
-      datas['workYear'] = this.dialog_form.workYear
-      datas['phone'] = this.dialog_form.mobile
-      datas['email'] = this.dialog_form.email
+      datas['username'] = this.form.name
+      datas['education'] = this.form.education
+      datas['name'] = this.form.name
+      datas['date0'] = this.form.date0
+      datas['date1'] = this.form.date1
+      datas['major'] = this.form.major
+      datas['workYear'] = this.form.workYear
+      datas['phone'] = this.form.mobile
+      datas['email'] = this.form.buyerEmail
       datas['city'] = this.form.city
-      datas['sex'] = this.dialog_form.sex
-      datas['address'] = this.dialog_form.address
-      datas['age'] = this.dialog_form.age
-      datas['statu'] = this.form.statu
+      datas['sex'] = this.form.sex
+      datas['address'] = this.form.address
+      datas['age'] = this.form.age
+      // 当前状态
+      datas['statu'] = this.statu
       datas['myCotent'] = this.myCotent
+      // 希望意向
       datas['expect'] = this.expect
       datas['sureWorks'] = this.sureWorks
-
-      // datas['myCotent'] = this.myCotent
-      // // 当前状态
-      // datas['statu'] = this.statu
-      // // 希望意向
-      // datas['expect'] = this.expect
-      // datas['sureWorks'] = this.sureWorks
       datas['config'] = {
         form: this.form,
         myCotent: this.myCotent,
@@ -481,7 +528,6 @@ export default {
         sureWorks: this.sureWorks
       }
       // datas['user_id'] = 1
-      debugger
       console.log(datas)
       return new Promise((resolve, reject) => {
         save_data(datas).then((response) => {
@@ -500,7 +546,7 @@ export default {
   font-size: 14px;
   min-height: 20px;
   margin-top: 1%;
-  border: 2px solid #c7c7c7;
+  /*border: 2px solid #c7c7c7;*/
 }
 
 .el-icon-edit {
@@ -510,9 +556,9 @@ export default {
 }
 
 .mynice {
-  font-size: 18px;
-  color: #333;
-  font-weight: 600;
+  /*font-size: 18px;*/
+  /*color: #333;*/
+  /*font-weight: 600;*/
 }
 
 .mynice span {
@@ -531,9 +577,35 @@ export default {
 
 .work-name span {
   border-left: 0;
-  font-size: 16px;
+  /*font-size: 16px;*/
   color: #333;
-  margin-left: 20%;
-  font-weight: 600;
+  margin-left: 10%;
+  /*font-weight: 600;*/
+}
+
+#app .hideSidebar .main-container {
+  width: 100%;
+  height: 100%;
+}
+
+#app .main-container {
+  margin-left: 327px;
+}
+
+.el-dialog{
+  display: flex;
+  flex-direction: column;
+  margin:0 !important;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  /*height:600px;*/
+  max-height:calc(100% - 30px);
+  max-width:calc(100% - 30px);
+}
+.el-dialog .el-dialog__body{
+  flex:1;
+  overflow: auto;
 }
 </style>

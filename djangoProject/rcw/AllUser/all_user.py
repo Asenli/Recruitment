@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from rest_framework.views import APIView
 
-from rcw.models import User
+from rcw.models import User, UserConfig
 import jwt
 
 
@@ -37,18 +37,20 @@ class AllInfo(APIView):
             if statu:
                 where = Q(statu=statu)
             if education:
-                where = where & Q(education=education)
+                where = where & Q(education__icontains=education)
             if major:
-                where = where & Q(major=major)
+                where = where & Q(major__icontains=major)
             if username:
-                where = where & Q(username=username)
+                where = where & Q(name__icontains=username)
 
             ## 关键词搜索 TODO
 
             if sort == '-id':
-                datas = User.objects.filter(where).order_by("-add_time")
+                # datas = User.objects.filter(where).order_by("-add_time")
+                user_data = UserConfig.objects.filter(where).order_by("-add_time").all()
             if sort == '+id':
-                datas = User.objects.filter(where).order_by("add_time")
+                user_data = UserConfig.objects.filter(where).order_by("add_time").all()
+                # datas = User.objects.filter(where).order_by("add_time")
             # data = [i for i in datas]
             data = []
             config = {
@@ -69,52 +71,37 @@ class AllInfo(APIView):
             }
             # 专业列表
             major_list = []
-            for i in datas:
-                if i.config and eval(i.config):
-                    config = eval(i.config)
-                if config['form']['major']:
-                    if config['form']['major'] not in major_list:
-                        major_list.append(config['form']['major'])
+            for userConfigs in user_data:
+                user_info = User.objects.filter(id=userConfigs.user_id).first()
+                if userConfigs:
+                    major_list.append(userConfigs.major)
+                    # if config['form']['major'] not in major_list:
+                    #     major_list.append(config['form']['major'])
                     data.append({
-                        'username': i.username,
-                        'img': str(i.img),
-                        'phone': i.phone,
-                        'email': i.email,
-                        'type': i.type,
-                        'id': i.id,
-                        'config': demjson.decode(i.config) if i.config else [],
-                        'education': i.education,
-                        'name': i.username,
-                        'date0': i.date0,
-                        'date1': i.date1,
-                        'major': i.major,
-                        'workYear': i.workYear,
-                        'city': i.city,
-                        'address': i.address,
-                        'age': i.age,
-                        'myCotent': i.myCotent,
-                        'statu': i.statu,
-                        'expect': i.expect,
-                        'sex': i.sex,
-                        'sureWorks': i.sureWorks,
-                        "add_time": i.add_time.strftime("%Y-%m-%d")
+                        'username': userConfigs.name,
+                        'img': '',
+                        'phone': userConfigs.mobile,
+                        'email': userConfigs.email,
+                        'type': '',
+                        'id': userConfigs.id,
+                        'config': demjson.decode(user_info.config) if user_info.config else [],
+                        'education': userConfigs.education,
+                        'name': userConfigs.name,
+                        'date0': userConfigs.date0,
+                        'date1': userConfigs.date1,
+                        'major': userConfigs.major,
+                        'workYear': userConfigs.workYear,
+                        'city': userConfigs.city,
+                        'address': userConfigs.address,
+                        'age': userConfigs.age,
+                        'myCotent': userConfigs.myCotent,
+                        'statu': userConfigs.statu,
+                        'expect': userConfigs.expect,
+                        'sex': userConfigs.sex,
+                        'sureWorks': userConfigs.sureWorks,
+                        "add_time": userConfigs.add_time.strftime("%Y-%m-%d")
 
                     })
-            #     data.append({"name": i.username, "email": i.email, "config": config,
-            #                  "education": config['form']['education'],
-            #                  "name_zh": config['form']['name'],
-            #                  "major": config['form']['major'],
-            #                  "sex": config['form']['sex'],
-            #                  "age": config['form']['age'],
-            #                  "workYear": config['form']['workYear'],
-            #                  "statu": config['statu'],
-            #                  "myContent": config['myCotent'],
-            #                  "sureWorks": config['sureWorks'],
-            #                  "expect": config['expect'],
-            #                  "add_time": i.add_time.strftime("%Y-%m-%d")
-            #                  # %H:%M:%S"add_time": i.add_time.strftime("%Y-%m-%d %H:%M:%S" )
-            #                  })
-            # data.append({'major_list': major_list})
             return JsonResponse({'code': 200, 'msg': '查询成功', 'data': data, "major_list": major_list})
         except Exception as e:
             print(e)

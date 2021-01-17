@@ -40,20 +40,20 @@ class UserInfo(APIView):
                     'type': obj.type,
                     'id': obj.id,
                     'config': demjson.decode(obj.config) if obj.config else [],
-                    'education': obj.education,
-                    'name': obj.username,
+                    'education': '',
+                    'name': '',
                     'date0': obj.date0,
                     'date1': obj.date1,
-                    'major': obj.major,
-                    'workYear': obj.workYear,
-                    'city': obj.city,
-                    'address': obj.address,
-                    'age': obj.age,
-                    'myCotent': obj.myCotent,
-                    'statu': obj.statu,
-                    'expect': obj.expect,
-                    'sex': obj.sex,
-                    'sureWorks': obj.sureWorks
+                    'major': '',
+                    'workYear': '',
+                    'city': '',
+                    'address': '',
+                    'age': 0,
+                    'myCotent': '',
+                    'statu': '',
+                    'expect': '',
+                    'sex': '',
+                    'sureWorks': []
                 }
                 role_name = Roles.objects.filter(user_id=obj.id).first()
                 if not role_name:
@@ -92,7 +92,7 @@ class UserInfo(APIView):
         phone = data.get('phone', None)
         email = data.get('email', None)
         education = data.get('education', None)
-        name = data.get('name', None)
+        name = data.get('username', None)
         date0 = data.get('date0', None)
         date1 = data.get('date1', None)
         workYear = data.get('workYear', None)
@@ -124,7 +124,7 @@ class UserInfo(APIView):
                     if email:
                         obj.update(email=email)
                     if name:
-                        obj.update(username=name)
+                        obj.update(name=name)
                     if date0:
                         obj.update(date0=date0)
                     if date1:
@@ -156,4 +156,4 @@ class UserInfo(APIView):
             print(e)
             return JsonResponse({'status': False, 'msg': '%s' % e})
 
-#     // 要发送多次请求  把列表 变成了字段传到后台？？？？？？？？？？？？？？  前段里面搜索 这个
+

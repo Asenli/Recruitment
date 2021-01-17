@@ -29,3 +29,10 @@ export function subForm(data) {
     data
   })
 }
+
+// export function userInfos() {
+//   return request({
+//     url: '/userinfo',
+//     method: 'get'
+//   })
+// }

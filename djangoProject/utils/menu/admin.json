@@ -17,34 +17,25 @@
       "name": "menu",
       "component": "menu/index",
        "meta": {
-          "title": "简历筛选1",
+          "title": "简历筛选",
           "icon": "table"
         }
     }]
   },
   {
-    "path": "/roles",
-    "component": "Layout",
-    "redirect": "/roles",
-    "children": [{
-      "path": "roles",
-      "name": "roles",
-      "component": "roles/index",
-       "meta": {
-          "title": "简历管理",
-          "icon": "table"
-        }
-    }]
-  },
-   {
-    "path": "/dashboard",
+    "path": "/",
     "component": "Layout",
     "redirect": "/dashboard",
-    "children": [{
-      "path": "dashboard",
-      "name": "dashboard",
-      "component": "dashboard/index",
-      "meta": { "title": "岗位信息", "icon": "dashboard" }
-    }]
+    "children": [
+      {
+        "path": "dashboard",
+        "name": "dashboard",
+        "component": "dashboard/index",
+        "meta": {
+          "title": "岗位信息",
+          "icon": "dashboard"
+        }
+      }
+    ]
   }
 ]

@@ -19,6 +19,7 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 from rcw.AllUser.all_user import AllInfo
 from rcw.Position.position import Position
+from rcw.User.jian_li import JianLi
 from rcw.User.user import UserInfo
 from rcw.views import Register, FindpwdView, AuthView, AuthViewLoginOut
 
@@ -35,6 +36,7 @@ urlpatterns = [
     path('register', Register.as_view()),
     path('api/repeat_pwd', FindpwdView.as_view()),
     path('userinfo', UserInfo.as_view()),
+    path('jian', JianLi.as_view()),
 
     path('position', Position.as_view()),
     # re_path(r'^all_user/$', AllInfo.as_view()),

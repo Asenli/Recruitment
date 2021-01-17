@@ -1,5 +1,5 @@
 from django.db import models
-
+from jsonfield import JSONField
 # Create your models here.
 # 修改model后
 # python manage.py makemigrations
@@ -26,7 +26,7 @@ class User(AbstractUser):
     type = models.IntegerField(default=1)
     resume = models.CharField(max_length=1024, null=True)
     # 简历
-    config = models.CharField(max_length=1024, null=True)
+    config = JSONField(max_length=200)
 
     education = models.CharField(max_length=10, null=True)
     name = models.CharField(max_length=15, null=True)
@@ -42,12 +42,17 @@ class User(AbstractUser):
     statu = models.CharField(max_length=10, null=True)
     expect = models.CharField(max_length=30, null=True)
     sex = models.CharField(max_length=5, null=True)
-    sureWorks = models.CharField(max_length=200, null=True)
+    sureWorks = JSONField(max_length=200)
     # 声明表明
     class Meta:
         db_table = 'user'
         verbose_name = verbose_name_plural = '用户信息表'
 
+    def __str__(self):
+        return self.name
+
+    # def __repr__(self):
+    #     return "用户"
 
 class userToken(models.Model):
     username = models.OneToOneField(to='User', on_delete=models.DO_NOTHING)
@@ -103,8 +108,26 @@ class UserConfig(models.Model):
     # 用户ID
     user_id = models.IntegerField()
     # 简历
-    config = models.CharField(max_length=1024, null=True)
+    # config = models.CharField(max_length=1024, null=True)
+    education = models.CharField(max_length=10, null=True)
+    name = models.CharField(max_length=10, null=True)
+    date0 = models.DateTimeField(null=True)
+    date1 = models.DateTimeField(null=True)
+    major = models.CharField(max_length=15, null=True)
+    workYear = models.IntegerField(default=1)
+    mobile = models.CharField(max_length=13, null=True)
+    city = models.CharField(max_length=10, null=True)
+    sex = models.CharField(max_length=3, null=True)
+    email = models.CharField(max_length=50, null=True)
+    address = models.CharField(max_length=200, null=True)
+    age = models.CharField(max_length=3, null=True)
+    statu = models.CharField(max_length=30, null=True)
+    expect = models.CharField(max_length=30, null=True)
+    sureWorks = JSONField(max_length=200)
+    myCotent = JSONField(max_length=200)
+    # 更新简历时间
+    add_time = models.DateTimeField(auto_now_add=True)
 
-    """
-    {'form': {'education': '本科', 'name': 'lidongbing', 'date0': '', 'date1': '', 'major': '计算机', 'workYear': 1, 'mobile': 15008438839, 'city': '', 'sex': '男', 'email': '634163113@qq.com', 'address': '', 'age': '20'}, 'myCotent': '<p>熟悉网络编程，了解HTTP/TCP/UDP等网络协议、Ajax等开发技术；</p><p>熟悉python多线程，多进程开发；</p><p>熟练运用web 开发框架Django、flask开发框架；</p><p>熟练使用MySQL数据库，非关系型数据库Redis、MongoDB的使用;</p><p>熟悉vue、Bootstrap、HTML5、CSS、AJAX等前端;</p><ol><li>了解docker、odoo；</li></ol>', 'statu': '离职-随时到岗', 'expect': '', 'sureWorks': [{'checkboxGroup2': [], 'name': '', 'tag': '22', 'dept': '无线', 'vocation': 'python', 'date1': '2019-01-28', 'cotent': '2'}]}
-    """
+    class Meta:
+        db_table = 'jian_li'
+        verbose_name = verbose_name_plural = '个人简历信息'
