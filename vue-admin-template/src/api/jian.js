@@ -26,3 +26,11 @@ export function station_data() {
   })
 }
 
+// 保存岗位信息
+export function submit_postion(data) {
+  return request({
+    url: '/position',
+    method: 'post',
+    data: data
+  })
+}
