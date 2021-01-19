@@ -21,18 +21,41 @@
 #
 # print(login.json())
 
-import json
+import paramiko
 
-from kafka import KafkaProducer
+# 49.232.202.208  22
 
-producer = KafkaProducer(bootstrap_servers='49.232.202.208:9092')
+# import paramiko  # 此模块用于连接虚拟机,ansible底层用此模块
+#
+# hostname = '49.232.202.208'
+# port = 22
+# username = 'root'
+# password = '886718959ldb,'
+# ssh = paramiko.SSHClient()
+# ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())  # 忽略know_hosts文件
+# ssh.connect(hostname=hostname, port=port, username=username, password=password)
+# while True:
+#     cmd = input('====>:')
+#     stdin, stdout, stderr = ssh.exec_command(cmd)
+#     print(stdout.read().decode('utf-8'))
 
-producer.send('test', b"this is a python to kafka")
 
-producer.close()
+import paramiko
 
+hostname = '49.232.202.208'
+port = 22
+username = 'root'
+password = '886718959ldb,'
+t = paramiko.Transport((hostname, port))  # ftp
+t.connect(username=username, password=password)
+sftp = paramiko.SFTPClient.from_transport(t)
+sftp.put(r'C:\Users\Administrator\Desktop\Recruitment\djangoProject\aa.py', '/home/aa.py')
+# sftp.get('/home/python2.7.tar', r'C:\Users\Administrator\Desktop\test\python2.7.tar' )
+sftp.close()
 
-"""
-docker run -dit --name mykafka1 --publish 9092:9092 --link zookeeper --env KAFKA_GROUP_ID=test_kafka1 --env KAFKA_BROKER_ID=1 --env KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 --env KAFKA_ADVERTISED_PORT=9092 --env KAFKA_ADVERTISED_HOST_NAME=kafka1 --volume /etc/localtime:/etc/localtime wurstmeister/kafka:latest
-
-"""
+# import paramiko
+#
+# nimei = paramiko.Transport(('192.168.206.140', 22))
+# nimei.connect(username='root', password='123456')
+# p = paramiko.SFTPClient.from_transport(nimei)
+# p.put(r'C:\Users\yhy\Desktop\1.txt', '/root/chedan2')  # 上传文件到远程机

@@ -1,41 +1,47 @@
 <template>
   <div class="container">
-    <ul class="sojob-list" style="width: 100%;">
-      <li v-for="(data,i) in dataList" :key="i">
-        <div class="flex-container">
-          <div class="flex-item">
-            <h3 class="div-h3">{{ data.name }}</h3>
-            <p>
-              <span style="color: #f60;">{{ data.salary }}</span> | <span>成都</span> |
-              <span>{{ data.education }}</span> | <span>{{ data.experience }}</span> <span><el-button type="primary" round size="mini">立即沟通</el-button></span>
-            </p>
-            <p style="text-align: left"><span>{{ data.keyword }}</span>&#8194; &#8194;
-              <span>{{ data.add_time }}</span></p>
+    <div style="width: 10%;    height: 800px;" />
+    <div style="width: 70%;    height: 730px;overflow: auto;">
+      <ul class="sojob-list" style="width: 100%;">
+        <li v-for="(data,i) in dataList" :key="i">
+          <div class="flex-container">
+            <div class="flex-item">
+              <h3 class="div-h3">{{ data.name }}</h3>
+              <p>
+                <span style="color: #f60;">{{ data.salary }}</span> | <span>成都</span> |
+                <span>{{ data.education }}</span> | <span>{{ data.experience }}</span>
+<!--                <span><el-button type="primary" round size="mini">立即沟通</el-button></span>-->
+              </p>
+              <p style="text-align: left"><span>{{ data.keyword }}</span>&#8194; &#8194;
+                <span>{{ data.add_time }}</span></p>
+            </div>
+            <div class="company-info">
+              <p><span>{{ data.company }}</span></p>
+              <!--            <p><span>建筑</span></p>-->
+              <!--            <p class="temptation"><span>绩效奖金</span><span>岗位晋升</span><span>午餐补助</span></p>-->
+              <p class="temptation">
+                <span>
+                  {{ data.fuli }}
+                </span>
+              </p>
+            </div>
           </div>
-          <div class="company-info">
-            <p><span>{{ data.company }}</span></p>
-            <!--            <p><span>建筑</span></p>-->
-            <!--            <p class="temptation"><span>绩效奖金</span><span>岗位晋升</span><span>午餐补助</span></p>-->
-            <p class="temptation">
-              <span>
-                {{ data.fuli }}
-              </span>
-            </p>
-          </div>
-        </div>
-      </li>
-    </ul>
-    <div id="box2" class="side">
-      <el-carousel height="400px" direction="vertical" :autoplay="true">
-        <el-carousel-item v-for="item in imageArry" :key="item">
-          <img width="320" :src="item" class="rightImg">
-        </el-carousel-item>
-      </el-carousel>
-      <el-carousel style="margin-top: 5px" :interval="3000" arrow="always" :autoplay="true">
-        <el-carousel-item v-for="item in imageArry" :key="item">
-          <img width="320" :src="item" class="rightImg">
-        </el-carousel-item>
-      </el-carousel>
+        </li>
+      </ul>
+    </div>
+    <div style="width: 15%">
+      <div id="box2" class="side">
+        <el-carousel height="400px" direction="vertical" :autoplay="true">
+          <el-carousel-item v-for="item in imageArry" :key="item">
+            <img width="320" :src="item" class="rightImg">
+          </el-carousel-item>
+        </el-carousel>
+        <el-carousel style="margin-top: 5px" :interval="3000" arrow="always" :autoplay="true">
+          <el-carousel-item v-for="item in imageArry" :key="item">
+            <img width="320" :src="item" class="rightImg">
+          </el-carousel-item>
+        </el-carousel>
+      </div>
     </div>
   </div>
 </template>
@@ -88,7 +94,6 @@ export default {
 }
 
 #box2 {
-  width: 35%;
   -webkit-justify-content: space-around;
   justify-content: space-around;
 }
@@ -105,10 +110,6 @@ export default {
 
 .container {
   display: flex;
-  width: 980px;
-  height: 85%;
-  margin-right: auto;
-  margin-left: auto;
 }
 
 .el-date-editor.el-input, .el-date-editor /deep/ .el-input__inner {
@@ -248,4 +249,16 @@ export default {
 .el-carousel__item:nth-child(2n+1) {
   background-color: #d3dce6;
 }
+
+/*.main-container {*/
+/*  height: 100%;*/
+/*}*/
+
+/*.app-main {*/
+/*  height: 100%;*/
+/*}*/
+
+/*.dashboard-container {*/
+/*  height: 100%;*/
+/*}*/
 </style>

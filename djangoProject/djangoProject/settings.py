@@ -159,7 +159,7 @@ REST_FRAMEWORK = {
 import datetime
 from common import utils
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),  # JWT_EXPIRATION_DELTA 指明token的有效期
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=5),  # JWT_EXPIRATION_DELTA 指明token的有效期
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
     'JWT_ALLOW_REFRESH': True,
     # 自定义返回格式
