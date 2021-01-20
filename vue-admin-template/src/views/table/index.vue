@@ -71,25 +71,25 @@
       </el-table-column>
       <el-table-column class-name="status-col" label="邮箱" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.email | statusFilter">{{ scope.row.email }}</el-tag>
+          <el-tag v-if="scope.row.email" :type="scope.row.email | statusFilter">{{ scope.row.email }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="更新时间">
+      <el-table-column class-name="status-col" label="更新时间" align="center">
         <template slot-scope="scope">
           <i class="el-icon-time" />
-          <span>{{ scope.row.add_time }}</span>
+          <span> {{ scope.row.add_time }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <span>
-            <el-button @click="detail(scope)">详情</el-button>
+            <el-button @click="detail(scope.row.user_id)">详情</el-button>
           </span>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog v-el-drag-dialog class="abow_dialog" :visible.sync="dialogTableVisible" title="个人简历" @dragDialog="handleDrag">
-      <jian-li-show />
+      <jian-li-show :jianda="jianData" />
     </el-dialog>
   </div>
 </template>
@@ -99,6 +99,7 @@ import { fetchList } from '@/api/table'
 import { getInfo } from '../../api/user'
 import elDragDialog from '@/directive/el-drag-dialog'
 import JianLiShow from '@/components/JianLiShow'
+import { jian_info } from '../../api/jian'
 export default {
   directives: { elDragDialog },
   components: { JianLiShow },
@@ -114,6 +115,7 @@ export default {
   },
   data() {
     return {
+      jianData: {},
       dialogTableVisible: false,
       data_list: [
         { row: { title: 1, author: 2, pageviews: 3, status: 4, display_time: 22 }}
@@ -176,9 +178,14 @@ export default {
     handleDrag() {
       this.$refs.select.blur()
     },
-    detail(datas) {
-      console.log(datas)
-      this.dialogTableVisible = true
+    detail(user_id) {
+      jian_info(user_id).then(data => {
+        console.log(data.data)
+        this.dialogTableVisible = true
+        this.jianData = data.data
+      }).catch(error => {
+        console.log(error)
+      })
     },
     getUserInfo() {
       getInfo(this.getToken).then(response2 => {
@@ -237,12 +244,14 @@ export default {
 <style>
 .filter-container {
   padding-bottom: 10px;
-
-.filter-item {
-  display: inline-block;
-  vertical-align: middle;
-  margin-bottom: 10px;
 }
+
+.filter-container .el-select {
+  margin-right: 5px;
+}
+
+.filter-container .filter-item {
+  margin-right: 5px;
 }
 
 /*.abow_dialog {*/
@@ -250,9 +259,11 @@ export default {
 /*}*/
 .el-dialog {
   min-width: 55%;
-  margin: 0 auto !important;
-  height: 60%;
+  /*margin: 0 auto !important;*/
+  /*height: 60%;*/
   overflow: hidden;
+}
+
 .el-dialog__body {
   position: absolute;
   left: 0;
@@ -264,7 +275,7 @@ export default {
   overflow: hidden;
   overflow-y: auto;
 }
-}
+
 .el-dialog__body {
   overflow: auto;
   height: 100%;
@@ -273,6 +284,6 @@ export default {
   /*min-width: 21rem;*/
   min-width: 340px;
   top: 30px;
-  min-height: 90%;
+  /*min-height: 90%;*/
 }
 </style>

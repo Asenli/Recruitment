@@ -84,6 +84,7 @@ class AllInfo(APIView):
                         'email': userConfigs.email,
                         'type': '',
                         'id': userConfigs.id,
+                        'user_id': userConfigs.user_id,
                         'config': demjson.decode(user_info.config) if user_info.config else [],
                         'education': userConfigs.education,
                         'name': userConfigs.name,

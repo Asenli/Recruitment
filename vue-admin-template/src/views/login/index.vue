@@ -1,79 +1,81 @@
 <template>
-  <div class="login-container">
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      auto-complete="on"
-      label-position="left"
-    >
+  <div class="login-app">
+    <div class="login-container">
+      <el-form
+        ref="loginForm"
+        :model="loginForm"
+        :rules="loginRules"
+        class="login-form"
+        auto-complete="on"
+        label-position="left"
+      >
 
-      <div class="title-container">
-        <h3 class="title">人才公会</h3>
-      </div>
+        <div class="title-container">
+          <h3 class="title">人才公会</h3>
+        </div>
 
-      <el-form-item prop="username">
+        <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="输入用户名"
-          name="username"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
-      </el-form-item>
+          <el-input
+            ref="username"
+            v-model="loginForm.username"
+            placeholder="输入用户名"
+            name="username"
+            type="text"
+            tabindex="1"
+            auto-complete="on"
+          />
+        </el-form-item>
 
-      <el-form-item prop="password">
+        <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="输入密码"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
-        <span class="show-pwd" @click="showPwd">
+          <el-input
+            :key="passwordType"
+            ref="password"
+            v-model="loginForm.password"
+            :type="passwordType"
+            placeholder="输入密码"
+            name="password"
+            tabindex="2"
+            auto-complete="on"
+            @keyup.enter.native="handleLogin"
+          />
+          <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
-      </el-form-item>
+        </el-form-item>
 
-      <el-button
-        :loading="loading"
-        type="primary"
-        style="width:100%;margin-bottom:30px;"
-        @click.native.prevent="handleLogin"
-      >登录
-      </el-button>
-      <div class="tips" />
-      <div style="position:relative">
-        <a style="padding-left: 20px;cursor: pointer;color:rgb(150, 150, 150);" @click="register">注册</a>
-        <!--                    <router-link to="/">注册</router-link>-->
-<!--        <a style="cursor: pointer;padding-left:10px;float: right;color: #969696;" @click="showDialog=true"> 忘记密码？</a>-->
-        <!--        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">-->
-        <!--          注册-->
-        <!--        </el-button>-->
-        <!--        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">-->
-        <!--          找回-->
-        <!--        </el-button>-->
-      </div>
-    </el-form>
-    <el-dialog title="注册" :visible.sync="toRegister">
-      <el-row class="register" style="">
-        <el-col :span="12" style="width:100%;margin-top: 25px;">
-          <div class="grid-content bg-purple-light">
-            <div style="width: 100%">
-              <div class="login-table">
+        <el-button
+          :loading="loading"
+          type="primary"
+          style="width:100%;margin-bottom:30px;"
+          @click.native.prevent="handleLogin"
+        >登录
+        </el-button>
+        <div class="tips" />
+        <div style="position:relative">
+          <a style="padding-left: 20px;cursor: pointer;color:rgb(150, 150, 150);" @click="register">注册</a>
+          <!--                    <router-link to="/">注册</router-link>-->
+          <!--        <a style="cursor: pointer;padding-left:10px;float: right;color: #969696;" @click="showDialog=true"> 忘记密码？</a>-->
+          <!--        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">-->
+          <!--          注册-->
+          <!--        </el-button>-->
+          <!--        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">-->
+          <!--          找回-->
+          <!--        </el-button>-->
+        </div>
+      </el-form>
+    </div>
+    <el-dialog title="注册" class="register-dialog" :visible.sync="toRegister">
+      <div style="" >
+        <el-row >
+          <el-col :span="12" style="width:100%;margin-top: 25px;">
+            <div class="grid-content bg-purple-light">
+              <div style="width: 100%" class="register">
                 <el-form
                   ref="ruleForm"
                   :model="params"
@@ -83,21 +85,21 @@
                   class="demo-ruleForm"
                 >
                   <el-form-item label="账户名" class="input-left" prop="username">
-                    <el-input v-model="params.username" placeholder="请输入字母或数字" />
+                    <el-input class="register-ip" v-model="params.username" style="rgb(135 137 139 / 59%);" placeholder="请输入字母或数字" />
                   </el-form-item>
                   <el-form-item class="input-left" prop="email">
                     <label slot="label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
-                    <el-input v-model="params.email" placeholder="请输入邮箱" />
+                    <el-input class="register-ip" v-model="params.email" style="rgb(135 137 139 / 59%);" placeholder="请输入邮箱" />
                   </el-form-item>
                   <el-form-item label="手机号" class="input-left" prop="phone">
-                    <el-input v-model.number="params.phone" placeholder="请输入手机号" />
+                    <el-input class="register-ip" v-model.number="params.phone" style="rgb(135 137 139 / 59%);" placeholder="请输入手机号" />
                   </el-form-item>
                   <el-form-item label="设置密码" class="input-left" prop="password">
-                    <el-input v-model="params.password1" maxlength="20" show-password placeholder="请输入秘密" />
+                    <el-input v-model="params.password1" style="rgb(135 137 139 / 59%);" maxlength="20" show-password placeholder="请输入秘密" />
                     <span v-if="errMsg" style="font-size: 8px;color: red;">{{ errMsg }}</span>
                   </el-form-item>
                   <el-form-item maxlength="20" label="确认密码" class="input-left" prop="password">
-                    <el-input v-model="params.password2" show-password placeholder="请输入秘密" />
+                    <el-input v-model="params.password2" style="rgb(135 137 139 / 59%);" show-password placeholder="请输入密码" />
                     <span v-if="errMsg2" style="font-size: 8px;color: red;">{{ errMsg2 }}</span>
                   </el-form-item>
                 </el-form>
@@ -117,9 +119,9 @@
                 </div>
               </div>
             </div>
-          </div>
-        </el-col>
-      </el-row>
+          </el-col>
+        </el-row>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -310,9 +312,9 @@ export default {
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg: #283443;
-$light_gray: #fff;
-$cursor: #fff;
+$bg: red;
+$light_gray: #575758;
+$cursor: rgb(135 137 139 / 59%);
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
@@ -333,10 +335,9 @@ $cursor: #fff;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      color: $light_gray;
       height: 47px;
       caret-color: $cursor;
-
+      color: #cec6c6;
       &:-webkit-autofill {
         box-shadow: 0 0 0px 1000px $bg inset !important;
         -webkit-text-fill-color: $cursor !important;
@@ -350,6 +351,16 @@ $cursor: #fff;
     border-radius: 5px;
     color: #454545;
   }
+}
+
+.login-app {
+  min-height: 100%;
+  width: 100%;
+  background-color: #2d3a4b;
+  overflow: hidden;
+  /*.register-dialog {*/
+  /*  max-width: 480px;*/
+  /*}*/
 }
 </style>
 
@@ -415,10 +426,18 @@ $light_gray: #eee;
     user-select: none;
   }
 }
-
+.register {
+  .register-ip .el-input {
+    input {
+      color: black;
+    }
+  }
+}
 .login-container .el-input {
   display: inline-block;
   height: 47px;
   width: 85%;
+  color: #575758;
 }
+
 </style>
