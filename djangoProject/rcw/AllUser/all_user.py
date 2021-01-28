@@ -74,7 +74,8 @@ class AllInfo(APIView):
             for userConfigs in user_data:
                 user_info = User.objects.filter(id=userConfigs.user_id).first()
                 if userConfigs:
-                    major_list.append(userConfigs.major)
+                    if userConfigs.major not in major_list:
+                        major_list.append(userConfigs.major)
                     # if config['form']['major'] not in major_list:
                     #     major_list.append(config['form']['major'])
                     data.append({

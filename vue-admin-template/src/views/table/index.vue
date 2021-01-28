@@ -88,7 +88,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog v-el-drag-dialog class="abow_dialog" :visible.sync="dialogTableVisible" title="个人简历" @dragDialog="handleDrag">
+    <el-dialog v-el-drag-dialog :visible.sync="dialogTableVisible" title="个人简历" @dragDialog="handleDrag">
       <jian-li-show :jianda="jianData" />
     </el-dialog>
   </div>
@@ -257,33 +257,34 @@ export default {
 /*.abow_dialog {*/
 /*  min-width: 55%;*/
 /*}*/
-.el-dialog {
-  min-width: 55%;
-  /*margin: 0 auto !important;*/
-  /*height: 60%;*/
-  overflow: hidden;
-}
+/*.el-dialog {*/
+/*  min-width: 55%;*/
+/*  !*margin: 0 auto !important;*!*/
+/*  !*height: 60%;*!*/
+/*  overflow: hidden;*/
+/*}*/
 
-.el-dialog__body {
-  position: absolute;
-  left: 0;
-  top: 54px;
-  bottom: 0;
-  right: 0;
-  padding: 0;
-  z-index: 1;
-  overflow: hidden;
-  overflow-y: auto;
-}
+/*.el-dialog__body {*/
+/*  position: absolute;*/
+/*  left: 0;*/
+/*  top: 54px;*/
+/*  bottom: 0;*/
+/*  right: 0;*/
+/*  padding: 0;*/
+/*  z-index: 1;*/
+/*  overflow: hidden;*/
+/*  overflow-y: auto;*/
+/*}*/
 
-.el-dialog__body {
-  overflow: auto;
-  height: 100%;
-}
-.el-dialog {
-  /*min-width: 21rem;*/
-  min-width: 340px;
-  top: 30px;
-  /*min-height: 90%;*/
-}
+/*.el-dialog__body {*/
+/*  overflow: auto;*/
+/*  height: 100%;*/
+/*}*/
+/*.el-dialog {*/
+/*  !*min-width: 21rem;*!*/
+/*  min-width: 340px;*/
+/*  top: 30px;*/
+/*  !*min-height: 90%;*!*/
+/*}*/
+
 </style>

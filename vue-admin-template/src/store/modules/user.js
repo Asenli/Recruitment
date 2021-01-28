@@ -49,6 +49,7 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
+        console.log('登录')
         if (response.statu === true) {
           const { data } = response
           commit('SET_TOKEN', data.token)
@@ -57,7 +58,10 @@ const actions = {
           setToken(data.token)
           resolve()
           this.loading = false
+          // 登录就跳转固定页面
+          this.$router.push('/dashboard')
         } else {
+          console.log('登录111')
           alert(response.msg)
           this.loading = false
         }
@@ -82,15 +86,15 @@ const actions = {
           reject('getInfo: roles must be a non-null array!')
         }
         // 如果需要404 页面，请在此处添加
-        menus.push({
-          path: '/404',
-          component: '404',
-          hidden: true
-        }, {
-          path: '*',
-          redirect: '/404',
-          hidden: true
-        })
+        // menus.push({
+        //   path: '/404',
+        //   component: '404',
+        //   hidden: true
+        // }, {
+        //   path: '*',
+        //   redirect: '/404',
+        //   hidden: true
+        // })
         commit('SET_ROLES', roles)
         commit('SET_NAME', username)
         commit('SET_AVATAR', avatar) // 角色

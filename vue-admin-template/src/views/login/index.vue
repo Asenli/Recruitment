@@ -15,9 +15,9 @@
         </div>
 
         <el-form-item prop="username">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
+          <span class="svg-container">
+            <svg-icon icon-class="user" />
+          </span>
           <el-input
             ref="username"
             v-model="loginForm.username"
@@ -30,9 +30,9 @@
         </el-form-item>
 
         <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
+          <span class="svg-container">
+            <svg-icon icon-class="password" />
+          </span>
           <el-input
             :key="passwordType"
             ref="password"
@@ -45,8 +45,8 @@
             @keyup.enter.native="handleLogin"
           />
           <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-        </span>
+            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+          </span>
         </el-form-item>
 
         <el-button
@@ -71,8 +71,8 @@
       </el-form>
     </div>
     <el-dialog title="注册" class="register-dialog" :visible.sync="toRegister">
-      <div style="" >
-        <el-row >
+      <div style="">
+        <el-row>
           <el-col :span="12" style="width:100%;margin-top: 25px;">
             <div class="grid-content bg-purple-light">
               <div style="width: 100%" class="register">
@@ -85,14 +85,14 @@
                   class="demo-ruleForm"
                 >
                   <el-form-item label="账户名" class="input-left" prop="username">
-                    <el-input class="register-ip" v-model="params.username" style="rgb(135 137 139 / 59%);" placeholder="请输入字母或数字" />
+                    <el-input v-model="params.username" class="register-ip" style="rgb(135 137 139 / 59%);" placeholder="请输入字母或数字" />
                   </el-form-item>
                   <el-form-item class="input-left" prop="email">
                     <label slot="label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
-                    <el-input class="register-ip" v-model="params.email" style="rgb(135 137 139 / 59%);" placeholder="请输入邮箱" />
+                    <el-input v-model="params.email" class="register-ip" style="rgb(135 137 139 / 59%);" placeholder="请输入邮箱" />
                   </el-form-item>
                   <el-form-item label="手机号" class="input-left" prop="phone">
-                    <el-input class="register-ip" v-model.number="params.phone" style="rgb(135 137 139 / 59%);" placeholder="请输入手机号" />
+                    <el-input v-model.number="params.phone" class="register-ip" style="rgb(135 137 139 / 59%);" placeholder="请输入手机号" />
                   </el-form-item>
                   <el-form-item label="设置密码" class="input-left" prop="password">
                     <el-input v-model="params.password1" style="rgb(135 137 139 / 59%);" maxlength="20" show-password placeholder="请输入秘密" />
@@ -148,6 +148,7 @@ export default {
       }
     }
     return {
+      errMsg2: '',
       rules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -312,7 +313,7 @@ export default {
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg: red;
+$bg: #283443;
 $light_gray: #575758;
 $cursor: rgb(135 137 139 / 59%);
 

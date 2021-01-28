@@ -10,7 +10,7 @@
               <p>
                 <span style="color: #f60;">{{ data.salary }}</span> | <span>成都</span> |
                 <span>{{ data.education }}</span> | <span>{{ data.experience }}</span>
-<!--                <span><el-button type="primary" round size="mini">立即沟通</el-button></span>-->
+                <!--                <span><el-button type="primary" round size="mini">立即沟通</el-button></span>-->
               </p>
               <p style="text-align: left"><span>{{ data.keyword }}</span>&#8194; &#8194;
                 <span>{{ data.add_time }}</span></p>

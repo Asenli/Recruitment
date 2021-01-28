@@ -1,6 +1,6 @@
 <template>
   <div class="jianli" style="height: 100%;display: flex;flex-direction: column;margin: 20px 100px 100px 100px;">
-    <div style="height: 35px;">
+    <div style="height: 55px;">
       <div style="">
         <span>期望职位：</span>
         <el-input v-model="expect" style="width: 220px;" placeholder="请输入意向岗位" />
@@ -15,8 +15,8 @@
         </el-select>
       </div>
     </div>
-    <div style="margin-top: 35px;height: 10%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
-      <div class="basic-info">
+    <div style="height: 10%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
+      <div class="basic-info" style="margin:20px;">
         <p class="basic-name female" style="margin-top: 5px;">
           <span style="font-size: 25px;color: #333;font-weight: 600;">{{ form.name }}</span>
           <i class="el-icon-edit" @click="dialogFormVisible = true">编辑</i>
@@ -26,18 +26,18 @@
           <!--            <span> / </span>-->
           <!--            <span class="basic-job"></span>-->
         </p>
-        <p class="basic-self" style="margin-top: 5px;">
+        <p class="basic-self" style="margin-top: 10px;font-size: 14px;">
           <span class="basic-exp">{{ form.workYear }} 年工作经验</span>
           <span class="basic-edu"> / {{ form.education === '本科' ? '本科 ' + '. 统招' : '专科' }}  </span>
           <span class="basic-age"> / {{ form.major }}</span>
           <span class="basic-age"> / {{ form.age }}岁</span>
           <span class="basic-age"> / {{ form.sex }}</span>
         </p>
-        <p>
+        <p style="font-size: 14px;margin-top:10px;">
           <span class="basic-tel">
             <i class="el-icon-mobile" /><span>{{ form.mobile }}</span>
           </span>
-          <span class="basic-email">
+          <span class="basic-email" style="margin-left: 10px;">
             <i class="el-icon-message" /><span>{{ form.email }}</span>
           </span>
         </p>
@@ -45,10 +45,10 @@
           {{ form.address }}
         </span></p>
         <el-dialog title="基本信息" :visible.sync="dialogFormVisible">
-          <el-form :model="dialog_form" :rules="rules" :inline="true">
+          <el-form :model="dialog_form2" :rules="rules" :inline="true">
             <el-form-item label="姓名" label-width="119px">
               <el-input
-                v-model="dialog_form.name"
+                v-model="dialog_form2.name"
                 type="text"
                 placeholder="请输入内容"
                 maxlength="20"
@@ -56,11 +56,11 @@
               />
             </el-form-item>
             <el-form-item label="生日" label-width="119px">
-              <el-date-picker v-model="dialog_form.date0" type="date" placeholder="年月日" style="width: 140px" />
+              <el-date-picker v-model="dialog_form2.date0" type="date" placeholder="年月日" style="width: 140px" />
             </el-form-item>
             <el-form-item label="年龄" label-width="119px">
               <el-input
-                v-model="dialog_form.age"
+                v-model="dialog_form2.age"
                 oninput="if(value.length>2)value=value.replace(/[^\d]/g,'').slice(0,2)"
                 placeholder="请输入年龄"
                 type="number"
@@ -69,7 +69,7 @@
               />
             </el-form-item>
             <el-form-item label="学历" label-width="119px">
-              <el-select v-model="dialog_form.education" style="width: 140px" placeholder="请选择">
+              <el-select v-model="dialog_form2.education" style="width: 140px" placeholder="请选择">
                 <el-option
                   v-for="item in options_education"
                   :key="item.value"
@@ -80,14 +80,14 @@
             </el-form-item>
             <el-form-item label="专业" label-width="119px">
               <el-input
-                v-model="dialog_form.major"
+                v-model="dialog_form2.major"
                 placeholder="请输入专业"
                 type="text"
                 style="width: 140px"
               />
             </el-form-item>
             <el-form-item label="性别" label-width="119px">
-              <el-select v-model="dialog_form.sex" style="width: 140px" placeholder="请选择">
+              <el-select v-model="dialog_form2.sex" style="width: 140px" placeholder="请选择">
                 <el-option
                   v-for="item in options_sex"
                   :key="item.value"
@@ -98,7 +98,7 @@
             </el-form-item>
             <el-form-item label="电话" label-width="119px">
               <el-input
-                v-model="dialog_form.mobile"
+                v-model="dialog_form2.mobile"
                 oninput="if(value.length>11)value=value.replace(/[^\d]/g,'').slice(0,11)"
                 placeholder="请输入电话"
                 type="text"
@@ -108,11 +108,11 @@
               />
             </el-form-item>
             <el-form-item label="邮箱" label-width="119px" prop="buyerEmail" required>
-              <el-input v-model="dialog_form.buyerEmail" style="width: 140px" clearable />
+              <el-input v-model="dialog_form2.buyerEmail" style="width: 140px" clearable />
             </el-form-item>
             <el-form-item label="工作经验" label-width="119px">
               <el-input
-                v-model="dialog_form.workYear"
+                v-model="dialog_form2.workYear"
                 oninput="if(value.length>2)value=value.replace(/[^\d]/g,'').slice(0,2)"
                 placeholder="请输入年限"
                 type="number"
@@ -122,7 +122,7 @@
             </el-form-item>
             <el-form-item v-show="false" label="开始工作" label-width="119px">
               <el-date-picker
-                v-model="dialog_form.date1"
+                v-model="dialog_form2.date1"
                 type="month"
                 placeholder="年月"
                 style="width: 140px"
@@ -141,7 +141,7 @@
         <span style="font-size: 26px;color: #333;font-weight: 600;"> 个人优势</span>
         <i class="el-icon-edit" @click="dialogFormVisible2 = true">编辑</i>
       </p>
-      <div class="ql-editor" v-html="myCotent" />
+      <div class="ql-editor" style="font-size: 14px;" v-html="myCotent" />
       <el-dialog title="个人优势" :visible.sync="dialogFormVisible2">
         <el-form :model="form">
           <el-form-item>
@@ -387,6 +387,25 @@ export default {
         address: '',
         age: ''
       },
+      dialog_form2: {
+        education: '',
+        name: '',
+        // 出生
+        date0: '',
+        // 工作时间
+        date1: '',
+        // 专业
+        major: '',
+        workYear: 0,
+        mobile: '',
+        city: '',
+        // 性别
+        sex: '',
+        buyerEmail: '',
+        // 住址
+        address: '',
+        age: ''
+      },
       dialogFormVisible2: false,
       statu: '',
       expect: '', // 期望意向
@@ -464,6 +483,7 @@ export default {
       } else {
         this.sureWorks.push(sureWork)
       }
+      this.content = ''
       console.log(this.sureWorks)
       this.dialogFormVisible3 = false
     },
@@ -495,6 +515,7 @@ export default {
     sureBase() {
       // this.data.base = this.form
       // this.save_info()
+      this.dialog_form = this.dialog_form2
       this.dialogFormVisible = false
       this.form = this.dialog_form
     },

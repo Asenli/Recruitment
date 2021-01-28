@@ -3,9 +3,9 @@
     <div style="height: 35px;">
       <div style="">
         <span>期望职位：</span>
-        <el-input  :disabled="true" v-model="expect" style="width: 220px;"  />
+        <el-input v-model="expect" :disabled="true" style="width: 220px;" />
         <span style="margin-left: 20px;">求职状态：</span>
-        <el-input  :disabled="true" v-model="statu" style="width: 220px;"  />
+        <el-input v-model="statu" :disabled="true" style="width: 220px;" />
       </div>
     </div>
     <div style="margin-top: 35px;height: 10%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
@@ -45,8 +45,7 @@
     <div style="margin-top: 30px;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
       <div class="mynice">
         <span style="font-size: 26px;color: #333;font-weight: 600;"> 工作经历</span>
-        <div v-for="(sureWork, i) in sureWorks" :key="i" class="work-class">
-          <!--          {{ sureWork }}-->
+        <div v-for="(sureWork, i, index) in sureWorks" :key="index" class="work-class">
           <div v-if="sureWork" class="work-name">
             <span>{{ sureWork.name }}</span>
             <span>{{ sureWork.dept }}</span>
@@ -61,7 +60,6 @@
 </template>
 
 <script>
-import { save_data } from '@/api/jian'
 export default {
   name: 'Index',
   props: {
@@ -119,6 +117,8 @@ export default {
     }
   },
   mounted() {
+    console.log(this.jianda)
+    console.log(this.jianda.major)
   },
   methods: {
   }
@@ -131,6 +131,8 @@ export default {
   min-height: 20px;
   margin-top: 1%;
   border: 2px solid #c7c7c7;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .el-icon-edit {
@@ -163,7 +165,7 @@ export default {
   border-left: 0;
   font-size: 16px;
   color: #333;
-  margin-left: 20%;
+  margin-left: 50px;
   font-weight: 600;
 }
 </style>
