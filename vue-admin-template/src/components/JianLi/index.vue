@@ -19,7 +19,7 @@
       <div class="basic-info" style="margin:20px;">
         <p class="basic-name female" style="margin-top: 5px;">
           <span style="font-size: 25px;color: #333;font-weight: 600;">{{ form.name }}</span>
-          <i class="el-icon-edit" @click="dialogFormVisible = true">编辑</i>
+          <i class="el-icon-edit" @click="showInfo">编辑</i>
         </p>
         <p style="margin-top: 5px;">
           <span class="basic-company">{{ form.company }}</span>
@@ -107,8 +107,8 @@
                 clearable
               />
             </el-form-item>
-            <el-form-item label="邮箱" label-width="119px" prop="buyerEmail" required>
-              <el-input v-model="dialog_form2.buyerEmail" style="width: 140px" clearable />
+            <el-form-item label="邮箱" label-width="119px" prop="email" required>
+              <el-input v-model="dialog_form2.email" style="width: 140px" clearable />
             </el-form-item>
             <el-form-item label="工作经验" label-width="119px">
               <el-input
@@ -306,7 +306,7 @@ export default {
         label: '博士'
       }],
       rules: {
-        buyerEmail: [
+        email: [
           { validator: checkEmail, trigger: 'blur' }
         ]
       },
@@ -382,7 +382,7 @@ export default {
         city: '',
         // 性别
         sex: '',
-        buyerEmail: '',
+        email: '',
         // 住址
         address: '',
         age: ''
@@ -401,7 +401,7 @@ export default {
         city: '',
         // 性别
         sex: '',
-        buyerEmail: '',
+        email: '',
         // 住址
         address: '',
         age: ''
@@ -433,11 +433,16 @@ export default {
     this.getInfo()
   },
   methods: {
+    showInfo() {
+      // this.dialog_form2 = this.form
+      this.dialogFormVisible = true
+    },
     getInfo() {
       return new Promise((resolve, reject) => {
         jian_info(this.user_id).then(data => {
           this.form = data.data
           this.dialog_form = data.data
+          // this.dialog_form2 = data.data
           this.statu = data.data.statu
           this.myCotent = data.data.myCotent
           this.expect = data.data.expect
@@ -530,7 +535,7 @@ export default {
       datas['major'] = this.form.major
       datas['workYear'] = this.form.workYear
       datas['phone'] = this.form.mobile
-      datas['email'] = this.form.buyerEmail
+      datas['email'] = this.form.email
       datas['city'] = this.form.city
       datas['sex'] = this.form.sex
       datas['address'] = this.form.address

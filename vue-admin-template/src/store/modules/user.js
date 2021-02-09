@@ -81,7 +81,8 @@ const actions = {
         if (!data) {
           return reject('Verification failed, please Login again.')
         }
-        const { menus, roles, username, avatar } = data
+        // const { menus, roles, username, avatar } = data
+        const { roles, username, avatar } = data
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
@@ -95,6 +96,94 @@ const actions = {
         //   redirect: '/404',
         //   hidden: true
         // })
+        // if (roles === "admin")
+        const menus = []
+        console.log(roles, menus)
+        if (roles === 'admin') {
+          menus.push({
+            path: '/system',
+            component: 'Layout',
+            redirect: '/station',
+            children: [{
+              path: 'station',
+              name: 'station',
+              component: 'station/index',
+              meta: {
+                title: '岗位管理',
+                icon: 'table'
+              }
+            }]
+          },
+          {
+            path: '/menu',
+            component: 'Layout',
+            redirect: '/menu',
+            children: [{
+              path: 'menu',
+              name: 'menu',
+              component: 'menu/index',
+              meta: {
+                title: '简历筛选',
+                icon: 'table'
+              }
+            }]
+          },
+          {
+            path: '/',
+            component: 'Layout',
+            redirect: '/dashboard',
+            children: [
+              {
+                path: 'dashboard',
+                name: 'dashboard',
+                component: 'dashboard/index',
+                meta: {
+                  title: '岗位信息',
+                  icon: 'dashboard'
+                }
+              }
+            ]
+          }
+          )
+
+          if (roles === 'sysadmin') {
+            (
+              {
+                path: '/',
+                component: 'Layout',
+                redirect: '/dashboard',
+                children: [
+                  {
+                    path: 'roles',
+                    name: 'roles',
+                    component: 'roles/index',
+                    meta: {
+                      title: '我的简历',
+                      icon: 'table'
+                    }
+                  }
+                ]
+              },
+              {
+                'path': '/',
+                'component': 'Layout',
+                'redirect': '/dashboard',
+                'children': [
+                  {
+                    'path': 'dashboard',
+                    'name': 'dashboard',
+                    'component': 'dashboard/index',
+                    'meta': {
+                      'title': '岗位信息',
+                      'icon': 'dashboard'
+                    }
+                  }
+                ]
+              }
+
+            )
+          }
+        }
         commit('SET_ROLES', roles)
         commit('SET_NAME', username)
         commit('SET_AVATAR', avatar) // 角色
