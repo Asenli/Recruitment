@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 from os import environ
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -54,13 +55,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'common.middlewares.auth_middleware',
 ]
-
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR,'static'),
+#     )
 ROOT_URLCONF = 'djangoProject.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -73,6 +76,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
@@ -134,6 +138,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': (
 #         'rest_framework.authentication.TokenAuthentication',
@@ -166,10 +171,7 @@ JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': utils.jwt_response_payload_handler,
 }
 
-AUTH_USER_MODEL="rcw.User"
-
-
-
+AUTH_USER_MODEL = "rcw.User"
 
 # 跨域增加忽略
 CORS_ALLOW_CREDENTIALS = True

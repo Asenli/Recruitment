@@ -11,7 +11,8 @@
       >
 
         <div class="title-container">
-          <h3 class="title">人才公会</h3>
+          <img :src="imgSrc" width="100%" height="50%" alt="">
+<!--          <h3 class="title">人才公会</h3>-->
         </div>
 
         <el-form-item prop="username">
@@ -148,6 +149,7 @@ export default {
       }
     }
     return {
+      imgSrc: require('../../assets/beijin.jpg'),
       errMsg2: '',
       rules: {
         username: [
@@ -406,6 +408,8 @@ $light_gray: #eee;
   }
 
   .title-container {
+    margin-top: -142px;
+    margin-bottom: 32px;
     position: relative;
 
     .title {

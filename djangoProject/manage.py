@@ -20,3 +20,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+"""
+border: 1px solid rgb(182, 175, 175);
+    padding: 10px;
+    border-radius: 10px;
+"""
