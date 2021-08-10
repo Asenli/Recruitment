@@ -68,7 +68,6 @@ export default {
       return new Promise((resolve, reject) => {
         station_data().then(data => {
           this.dataList = data.data
-          console.log(this.dataList)
         }).catch(error => {
           reject(error)
         })
@@ -100,7 +99,7 @@ export default {
 
 .el-icon-edit {
   cursor: pointer;
-  color: #00B38A;
+  color: #409EFF;
   float: right;
 }
 

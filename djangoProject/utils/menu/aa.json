@@ -1,0 +1,30 @@
+{
+  'form': {
+    'education': '本科',
+    'name': 'lidongbing',
+    'date0': '',
+    'date1': '',
+    'major': '计算机',
+    'workYear': 1,
+    'mobile': 15008438839,
+    'city': '',
+    'sex': '男',
+    'email': '634163113@qq.com',
+    'address': '',
+    'age': '20'
+  },
+  'myCotent': '<p>熟悉网络编程，了解HTTP/TCP/UDP等网络协议、Ajax等开发技术；</p><p>熟悉python多线程，多进程开发；</p><p>熟练运用web 开发框架Django、flask开发框架；</p><p>熟练使用MySQL数据库，非关系型数据库Redis、MongoDB的使用;</p><p>熟悉vue、Bootstrap、HTML5、CSS、AJAX等前端;</p><ol><li>了解docker、odoo；</li></ol>',
+  'statu': '离职-随时到岗',
+  'expect': '',
+  'sureWorks': [
+    {
+      'checkboxGroup2': [],
+      'name': '',
+      'tag': '22',
+      'dept': '无线',
+      'vocation': 'python',
+      'date1': '2019-01-28',
+      'cotent': '2'
+    }
+  ]
+}

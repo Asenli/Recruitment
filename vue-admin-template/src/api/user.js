@@ -8,11 +8,10 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo() {
   return request({
-    url: '/userinfo',
-    method: 'get',
-    params: { token }
+    url: '/userinfo/',
+    method: 'get'
   })
 }
 
@@ -22,6 +21,7 @@ export function logout() {
     method: 'post'
   })
 }
+
 export function subForm(data) {
   return request({
     url: '/register',

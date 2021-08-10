@@ -49,8 +49,7 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
-        console.log('登录')
-        if (response.statu === true) {
+        if (response.status === true) {
           const { data } = response
           commit('SET_TOKEN', data.token)
           localStorage.setItem('user_id', data.id)
@@ -61,8 +60,6 @@ const actions = {
           // 登录就跳转固定页面
           this.$router.push('/dashboard')
         } else {
-          console.log('登录111')
-          alert(response.msg)
           this.loading = false
         }
       }).catch(error => {
@@ -75,14 +72,13 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo().then(response => {
         const { data } = response
-
         if (!data) {
           return reject('Verification failed, please Login again.')
         }
         // const { menus, roles, username, avatar } = data
-        const { roles, username, avatar } = data
+        const { roles, username, avatar, menus } = data
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
@@ -97,93 +93,94 @@ const actions = {
         //   hidden: true
         // })
         // if (roles === "admin")
-        const menus = []
-        console.log(roles, menus)
-        if (roles === 'admin') {
-          menus.push({
-            path: '/system',
-            component: 'Layout',
-            redirect: '/station',
-            children: [{
-              path: 'station',
-              name: 'station',
-              component: 'station/index',
-              meta: {
-                title: '岗位管理',
-                icon: 'table'
-              }
-            }]
-          },
-          {
-            path: '/menu',
-            component: 'Layout',
-            redirect: '/menu',
-            children: [{
-              path: 'menu',
-              name: 'menu',
-              component: 'menu/index',
-              meta: {
-                title: '简历筛选',
-                icon: 'table'
-              }
-            }]
-          },
-          {
-            path: '/',
-            component: 'Layout',
-            redirect: '/dashboard',
-            children: [
-              {
-                path: 'dashboard',
-                name: 'dashboard',
-                component: 'dashboard/index',
-                meta: {
-                  title: '岗位信息',
-                  icon: 'dashboard'
-                }
-              }
-            ]
-          }
-          )
-
-          if (roles === 'sysadmin') {
-            (
-              {
-                path: '/',
-                component: 'Layout',
-                redirect: '/dashboard',
-                children: [
-                  {
-                    path: 'roles',
-                    name: 'roles',
-                    component: 'roles/index',
-                    meta: {
-                      title: '我的简历',
-                      icon: 'table'
-                    }
-                  }
-                ]
-              },
-              {
-                'path': '/',
-                'component': 'Layout',
-                'redirect': '/dashboard',
-                'children': [
-                  {
-                    'path': 'dashboard',
-                    'name': 'dashboard',
-                    'component': 'dashboard/index',
-                    'meta': {
-                      'title': '岗位信息',
-                      'icon': 'dashboard'
-                    }
-                  }
-                ]
-              }
-
-            )
-          }
-        }
+        // const menus = []
+        // debugger
+        // console.log(roles, menus)
+        // if (roles === 'admin') {
+        //   menus.push({
+        //     path: '/system',
+        //     component: 'Layout',
+        //     redirect: '/station',
+        //     children: [{
+        //       path: 'station',
+        //       name: 'station',
+        //       component: 'station/index',
+        //       meta: {
+        //         title: '岗位管理',
+        //         icon: 'table'
+        //       }
+        //     }]
+        //   },
+        //   {
+        //     path: '/menu',
+        //     component: 'Layout',
+        //     redirect: '/menu',
+        //     children: [{
+        //       path: 'menu',
+        //       name: 'menu',
+        //       component: 'menu/index',
+        //       meta: {
+        //         title: '简历筛选',
+        //         icon: 'table'
+        //       }
+        //     }]
+        //   },
+        //   {
+        //     path: '/',
+        //     component: 'Layout',
+        //     redirect: '/dashboard',
+        //     children: [
+        //       {
+        //         path: 'dashboard',
+        //         name: 'dashboard',
+        //         component: 'dashboard/index',
+        //         meta: {
+        //           title: '岗位信息',
+        //           icon: 'dashboard'
+        //         }
+        //       }
+        //     ]
+        //   }
+        //   )
+        //
+        //   if (roles === 'sysadmin') {
+        //     (
+        //       {
+        //         path: '/',
+        //         component: 'Layout',
+        //         redirect: '/dashboard',
+        //         children: [
+        //           {
+        //             path: 'roles',
+        //             name: 'roles',
+        //             component: 'roles/index',
+        //             meta: {
+        //               title: '我的简历',
+        //               icon: 'table'
+        //             }
+        //           }
+        //         ]
+        //       },
+        //       {
+        //         'path': '/',
+        //         'component': 'Layout',
+        //         'redirect': '/dashboard',
+        //         'children': [
+        //           {
+        //             'path': 'dashboard',
+        //             'name': 'dashboard',
+        //             'component': 'dashboard/index',
+        //             'meta': {
+        //               'title': '岗位信息',
+        //               'icon': 'dashboard'
+        //             }
+        //           }
+        //         ]
+        //       }
+        //
+        //     )
+        //   }
+        // }
         commit('SET_ROLES', roles)
         commit('SET_NAME', username)
         commit('SET_AVATAR', avatar) // 角色

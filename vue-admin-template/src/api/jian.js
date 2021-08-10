@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 获取用户简历信息
 export function jian_info(user_id) {
   return request({
-    url: '/jian',
+    url: '/jian/',
     method: 'get',
     params: { user_id: user_id }
   })
@@ -12,7 +12,7 @@ export function jian_info(user_id) {
 // 保存简历信息
 export function save_data(data) {
   return request({
-    url: '/jian',
+    url: '/jian/',
     method: 'post',
     data
   })
@@ -21,7 +21,7 @@ export function save_data(data) {
 // 获取岗位信息
 export function station_data() {
   return request({
-    url: '/position',
+    url: '/position/',
     method: 'get'
   })
 }
@@ -29,7 +29,7 @@ export function station_data() {
 // 保存岗位信息
 export function submit_postion(data) {
   return request({
-    url: '/position',
+    url: '/position/',
     method: 'post',
     data: data
   })

@@ -1,15 +1,15 @@
 <template>
   <div class="mynice">
     <span> 工作经历</span>
-    <i class="el-icon-edit" @click="showDg3()">添加</i>
+    <i class="el-icon-plus" @click="showDg3()"   title="添加"></i>
     <div v-for="(sureWork, i) in sureWorks" :key="i" class="work-class">
       <div v-if="sureWork" class="work-name">
         <span>{{ sureWork.name }}</span>
         <span v-if="sureWork.date1" style="margin-left: 10%;">{{ sureWork.date1[0] }}-{{ sureWork.date1[1] }}</span>
-        <i class="el-icon-edit" style="padding-left: 10px;" @click="showDg3(sureWork, i)">编辑</i>
+        <i class="el-icon-edit" style="padding-left: 10px;" @click="showDg3(sureWork, i)"  title="编辑"></i>
         <i
           class="el-icon-delete"
-          style="cursor: pointer;color: #00B38A;float: right;"
+          style="cursor: pointer;color: #409EFF;float: right;"
           @click="deleteDg3(i)"
         >删除</i>
       </div>
@@ -134,8 +134,7 @@ export default {
     }
   },
   mounted() {
-    // debugger
-    this.$axios.get('http://127.0.0.1:8000/userinfo/', { params: { id: localStorage.getItem('userId') }}).then(res => {
+    this.$axios.get('/userinfo/?user_id=' + localStorage.getItem('userId')).then(res => {
       if (res.data.code === 200 && res.data.data.config) {
         this.sureWorks = res.data.data.config.surework
       }
@@ -196,7 +195,6 @@ export default {
     },
     // 我的工作经历
     myWork(data, i) {
-      console.log(this.sureWorks)
       const sureWorkData = {
         name: this.work.name,
         tag: this.work.tag,
@@ -214,8 +212,7 @@ export default {
       } else {
         // 保存
         this.sureWorks.push(sureWorkData)
-        console.log({ config: this.sureWorks })
-        this.$axios.post('http://127.0.0.1:8000/userinfo/', { config: this.sureWorks }).then(res => {
+        this.$axios.post('/userinfo/', { config: this.sureWorks }).then(res => {
           // 要发送多次请求  把列表 变成了字段传到后台？？？？？？？？？？？？？？
           console.log(res)
         })
@@ -230,7 +227,12 @@ export default {
 <style scoped>
 .el-icon-edit {
   cursor: pointer;
-  color: #00B38A;
+  color: #409EFF;
+  float: right;
+}
+.el-icon-plus {
+  cursor: pointer;
+  color: #409EFF;
   float: right;
 }
 

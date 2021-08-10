@@ -92,7 +92,7 @@ export default {
       return this.jianda.expect
     },
     myCotent() {
-      return this.jianda.myCotent
+      return this.jianda.myCotent[0]
     },
     form() {
       return {
@@ -137,7 +137,7 @@ export default {
 
 .el-icon-edit {
   cursor: pointer;
-  color: #00B38A;
+  color: #409EFF;
   float: right;
 }
 

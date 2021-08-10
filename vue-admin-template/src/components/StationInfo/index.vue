@@ -89,6 +89,7 @@ export default {
             message: data.msg,
             type: 'success'
           })
+          this.$message.success(data.msg)
         }).catch(error => {
           reject(error)
         })

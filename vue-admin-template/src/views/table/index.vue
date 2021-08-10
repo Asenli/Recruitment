@@ -127,7 +127,7 @@ export default {
         importance: [],
         importance2: [],
         importance3: [],
-        name: undefined,
+        name: '',
         sort: '-id'
       },
       importanceOptions: ['离职-随时到岗', '在职-月内到岗', '在职-考虑机会', '在职-暂不考虑'],
@@ -180,15 +180,14 @@ export default {
     },
     detail(user_id) {
       jian_info(user_id).then(data => {
-        console.log(data.data)
         this.dialogTableVisible = true
         this.jianData = data.data
       }).catch(error => {
         console.log(error)
       })
     },
-    getUserInfo() {
-      getInfo(this.getToken).then(response2 => {
+    getUserInfo({ state }) {
+      getInfo(1).then(response2 => {
         console.log(response2)
       })
     },
@@ -197,6 +196,7 @@ export default {
       // 重新刷新列表数据
       fetchList(this.listQuery).then(datas => {
         // this.total = response.data.total
+        console.log(datas)
         this.importanceOptions3 = datas['major_list']
         const data_list = []
         datas['data'].forEach(function(item, index) {

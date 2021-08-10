@@ -3,7 +3,7 @@
     <div style="height: 55px;">
       <div style="">
         <span>期望职位：</span>
-        <el-input v-model="expect" style="width: 220px;" placeholder="请输入意向岗位" />
+        <el-input v-model="expect" style="width: 220px;" placeholder="请输入意向岗位"/>
         <span style="margin-left: 20px;">求职状态：</span>
         <el-select v-model="statu" placeholder="请选择当前状态">
           <el-option
@@ -15,11 +15,12 @@
         </el-select>
       </div>
     </div>
-    <div style="height: 10%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
-      <div class="basic-info" style="margin:20px;">
+    <div
+      style="height: 10%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
+      <div class="basic-info" style="">
         <p class="basic-name female" style="margin-top: 5px;">
           <span style="font-size: 25px;color: #333;font-weight: 600;">{{ form.name }}</span>
-          <i class="el-icon-edit" @click="showInfo">编辑</i>
+          <i class="el-icon-edit" style="" @click="showInfo" title="编辑"></i>
         </p>
         <p style="margin-top: 5px;">
           <span class="basic-company">{{ form.company }}</span>
@@ -35,10 +36,10 @@
         </p>
         <p style="font-size: 14px;margin-top:10px;">
           <span class="basic-tel">
-            <i class="el-icon-mobile" /><span>{{ form.mobile }}</span>
+            <i class="el-icon-mobile"/><span>{{ form.mobile }}</span>
           </span>
           <span class="basic-email" style="margin-left: 10px;">
-            <i class="el-icon-message" /><span>{{ form.email }}</span>
+            <i class="el-icon-message"/><span>{{ form.email }}</span>
           </span>
         </p>
         <p><span>
@@ -56,7 +57,7 @@
               />
             </el-form-item>
             <el-form-item label="生日" label-width="119px">
-              <el-date-picker v-model="dialog_form2.date0" type="date" placeholder="年月日" style="width: 140px" />
+              <el-date-picker v-model="dialog_form2.date0" type="date" placeholder="年月日" style="width: 140px"/>
             </el-form-item>
             <el-form-item label="年龄" label-width="119px">
               <el-input
@@ -108,7 +109,7 @@
               />
             </el-form-item>
             <el-form-item label="邮箱" label-width="119px" prop="email" required>
-              <el-input v-model="dialog_form2.email" style="width: 140px" clearable />
+              <el-input v-model="dialog_form2.email" style="width: 140px" clearable/>
             </el-form-item>
             <el-form-item label="工作经验" label-width="119px">
               <el-input
@@ -118,7 +119,8 @@
                 type="number"
                 maxlength="2"
                 style="width: 130px"
-              />年
+              />
+              年
             </el-form-item>
             <el-form-item v-show="false" label="开始工作" label-width="119px">
               <el-date-picker
@@ -136,12 +138,13 @@
         </el-dialog>
       </div>
     </div>
-    <div style="margin-top: 30px;height: 30%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
+    <div
+      style="margin-top: 30px;height: 30%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
       <p class="mynice">
         <span style="font-size: 26px;color: #333;font-weight: 600;"> 个人优势</span>
-        <i class="el-icon-edit" @click="dialogFormVisible2 = true">编辑</i>
+        <i class="el-icon-edit" @click="dialogFormVisible2 = true" title="编辑"></i>
       </p>
-      <div class="ql-editor" style="font-size: 14px;" v-html="myCotent" />
+      <div class="ql-editor" style="font-size: 14px;" v-html="myCotent"/>
       <el-dialog title="个人优势" :visible.sync="dialogFormVisible2">
         <el-form :model="form">
           <el-form-item>
@@ -160,10 +163,11 @@
         </div>
       </el-dialog>
     </div>
-    <div style="margin-top: 30px;height: 40%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
+    <div
+      style="margin-top: 30px;height: 40%;border: 1px solid #b6afaf;padding: 10px;border-radius: 10px;box-shadow: 0 0 0 10px #eeeef0;">
       <div class="mynice">
         <span style="font-size: 26px;color: #333;font-weight: 600;"> 工作经历</span>
-        <i class="el-icon-edit" @click="showDg3()">添加</i>
+        <i class="el-icon-plus" @click="showDg3()" title="添加"></i>
         <div v-for="(sureWork, i) in sureWorks" :key="i" class="work-class">
           <!--          {{ sureWork }}-->
           <div v-if="sureWork" class="work-name">
@@ -171,20 +175,21 @@
             <span>{{ sureWork.dept }}</span>
             <span>{{ sureWork.vocation }}</span>
             <span v-if="sureWork.date1" style="margin-left: 10%;">{{ sureWork.date1[0] }}-{{ sureWork.date1[1] }}</span>
-            <i class="el-icon-edit" style="padding-left: 10px;" @click="showDg3(sureWork, i)">编辑</i>
+            <i class="el-icon-edit" style="padding-left: 10px;" @click="showDg3(sureWork, i)" title="编辑"></i>
             <i
               class="el-icon-delete"
-              style="cursor: pointer;color: #00B38A;float: right;"
+              style="cursor: pointer;color: #409EFF;float: right; font-size: 16px;font-weight: bold;"
+              title="删除"
               @click="deleteDg3(i)"
-            >删除</i>
+            />
           </div>
           <!--          <p style="margin-left: 20%;">{{ sureWork.vocation }}</p>-->
-          <div class="ql-editor" style="margin: 2%;" v-html="sureWork.content" />
+          <div class="ql-editor" style="margin: 2%;" v-html="sureWork.content"/>
         </div>
         <el-dialog title="工作经历" :visible.sync="dialogFormVisible3">
           <el-form :model="work">
             <el-form-item label-width="120px" label="公司名称">
-              <el-input v-model="work.name" />
+              <el-input v-model="work.name"/>
             </el-form-item>
             <el-form-item label-width="120px" label="行业标签">
               <el-button @click="chooseTag">选择标签</el-button>
@@ -193,10 +198,10 @@
               </el-button>
             </el-form-item>
             <el-form-item label-width="120px" label="所属部门">
-              <el-input v-model="work.dept" />
+              <el-input v-model="work.dept"/>
             </el-form-item>
             <el-form-item label-width="120px" label="职业类型">
-              <el-input v-model="work.vocation" />
+              <el-input v-model="work.vocation"/>
             </el-form-item>
             <el-form-item label-width="120px" label="在职时间">
               <!--                  <el-input v-model="work.date1"></el-input>-->
@@ -244,7 +249,9 @@
         </el-dialog>
       </div>
     </div>
-    <div style="text-align: center;margin-top: 4%;"><el-button size="small" type="primary" @click="save_info">保存</el-button></div>
+    <div style="text-align: center;margin-top: 4%;">
+      <el-button size="small" type="primary" @click="save_info">保存</el-button>
+    </div>
   </div>
 </template>
 
@@ -256,6 +263,7 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import { jian_info } from '../../api/jian'
+
 export default {
   name: 'Index',
   components: { quillEditor },
@@ -444,7 +452,7 @@ export default {
           this.dialog_form = data.data
           // this.dialog_form2 = data.data
           this.statu = data.data.statu
-          this.myCotent = data.data.myCotent
+          this.myCotent = data.data.myCotent[0]
           this.expect = data.data.expect
           this.sureWorks = data.data.sureWorks
         }).catch(error => {
@@ -473,7 +481,6 @@ export default {
     },
     // 编辑个人经历
     myWork(data, i) {
-      console.log(this.work)
       const sureWork = {
         name: this.work.name,
         tag: this.workTag,
@@ -486,7 +493,9 @@ export default {
         this.sureWorks.splice(i, 1, data)
         this.editTag = ''
       } else {
-        this.sureWorks.push(sureWork)
+        if (sureWork && sureWork !== '[]' && sureWork !== []) {
+          this.sureWorks.push(sureWork)
+        }
       }
       this.content = ''
       console.log(this.sureWorks)
@@ -554,10 +563,12 @@ export default {
         sureWorks: this.sureWorks
       }
       // datas['user_id'] = 1
-      console.log(datas)
       return new Promise((resolve, reject) => {
         save_data(datas).then((response) => {
-          console.log(response)
+          this.$message({
+            message: '保存成功',
+            type: 'success'
+          })
         }).catch(error => {
           reject(error)
         })
@@ -566,7 +577,20 @@ export default {
   }
 }
 </script>
+<style>
+.el-icon-edit {
+  font-size: 16px;
+  font-weight: bold;
+}
 
+.el-icon-plus {
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #409EFF;
+  float: right;
+}
+</style>
 <style scoped>
 .work-class {
   font-size: 14px;
@@ -577,7 +601,7 @@ export default {
 
 .el-icon-edit {
   cursor: pointer;
-  color: #00B38A;
+  color: #409EFF;
   float: right;
 }
 
@@ -618,20 +642,21 @@ export default {
   margin-left: 327px;
 }
 
-.el-dialog{
+.el-dialog {
   display: flex;
   flex-direction: column;
-  margin:0 !important;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
+  margin: 0 !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   /*height:600px;*/
-  max-height:calc(100% - 30px);
-  max-width:calc(100% - 30px);
+  max-height: calc(100% - 30px);
+  max-width: calc(100% - 30px);
 }
-.el-dialog .el-dialog__body{
-  flex:1;
+
+.el-dialog .el-dialog__body {
+  flex: 1;
   overflow: auto;
 }
 </style>
